@@ -4,9 +4,21 @@
 //
 //  Created by Евгений Сердюков on 21.10.2021.
 //
+//Настройка "Оставлять
+// Иерархия -
+
 
 import SwiftUI
 import CoreData
+
+struct ToolbarButtonStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            configuration.icon.font(.headline)
+            configuration.title.font(.subheadline)
+        }.padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: -10))
+    }
+}
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -19,26 +31,35 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                Section("My list") {
+                    ForEach(items) { item in
+                        NavigationLink {
+                            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        } label: {
+                            Text(item.timestamp!, formatter: itemFormatter)
+                        }
                     }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                ToolbarItem(placement: .bottomBar) {
+                    toolbarCustomButtom
                 }
             }
-            Text("Select an item")
+        }
+    }
+
+    var toolbarCustomButtom: some View {
+        HStack {
+            Button(action: { }) { Label("Notification", systemImage: "plus.circle.fill") }
+            .labelStyle(ToolbarButtonStyle())
+            Spacer()
+            Button(action: addItem) { Label("add list", systemImage: "") }
+            .labelStyle(ToolbarButtonStyle())
         }
     }
 
@@ -73,6 +94,13 @@ struct ContentView: View {
         }
     }
 }
+
+
+
+
+
+
+
 
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
