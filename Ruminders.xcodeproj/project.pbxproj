@@ -16,6 +16,8 @@
 		772FEADC27215939006C1FE8 /* RumindersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEADB27215939006C1FE8 /* RumindersTests.swift */; };
 		772FEAE627215939006C1FE8 /* RumindersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEAE527215939006C1FE8 /* RumindersUITests.swift */; };
 		772FEAE827215939006C1FE8 /* RumindersUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEAE727215939006C1FE8 /* RumindersUITestsLaunchTests.swift */; };
+		77852D942723349200137E88 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77852D932723349200137E88 /* MenuModel.swift */; };
+		77852D9627233D9500137E88 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77852D9527233D9500137E88 /* ListModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		772FEAE127215939006C1FE8 /* RumindersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RumindersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		772FEAE527215939006C1FE8 /* RumindersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RumindersUITests.swift; sourceTree = "<group>"; };
 		772FEAE727215939006C1FE8 /* RumindersUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RumindersUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		77852D932723349200137E88 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
+		77852D9527233D9500137E88 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +102,10 @@
 		772FEAC427215937006C1FE8 /* Ruminders */ = {
 			isa = PBXGroup;
 			children = (
-				772FEAC527215937006C1FE8 /* RumindersApp.swift */,
+				77852D9527233D9500137E88 /* ListModel.swift */,
+				77852D932723349200137E88 /* MenuModel.swift */,
 				772FEAC727215937006C1FE8 /* ContentView.swift */,
+				772FEAC527215937006C1FE8 /* RumindersApp.swift */,
 				772FEAC927215939006C1FE8 /* Assets.xcassets */,
 				772FEACE27215939006C1FE8 /* Persistence.swift */,
 				772FEAD027215939006C1FE8 /* Ruminders.xcdatamodeld */,
@@ -265,6 +271,8 @@
 			files = (
 				772FEACF27215939006C1FE8 /* Persistence.swift in Sources */,
 				772FEAC827215937006C1FE8 /* ContentView.swift in Sources */,
+				77852D942723349200137E88 /* MenuModel.swift in Sources */,
+				77852D9627233D9500137E88 /* ListModel.swift in Sources */,
 				772FEAC627215937006C1FE8 /* RumindersApp.swift in Sources */,
 				772FEAD227215939006C1FE8 /* Ruminders.xcdatamodeld in Sources */,
 			);
