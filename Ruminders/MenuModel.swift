@@ -67,36 +67,22 @@ private struct DropDownHeader: View {
 struct DropDownView: View {
 
     var menuActions: [DropDownAction]
-    @State var expand = false
+    var showHeader = false
+    var title: String = ""
+    @Binding var showMenu: Bool
 
     var body: some View {
 
         VStack(alignment: .leading) {
-            DropDownHeader(title: "hekhkhky", action:{ self.expand.toggle() }, expand: expand)
-            if expand {
+            if showHeader { DropDownHeader(title: "hekhkhky", action:{ self.showMenu.toggle() }, expand: showMenu)}
+            if showMenu {
                 DropDownMenu(menuActions: menuActions, select: {
                     action in
                     action.action()
-                    self.expand.toggle()
+                    self.showMenu.toggle()
                 })
             }
         }
-        .animation(.spring(), value: expand)
-
-
-    }
-
-}
-
-struct MenuModel_Previews: PreviewProvider {
-
-    static let actions = [ DropDownAction(title: "1 action", action: { Text("fsddssdfsdf") }),
-                           DropDownAction(title: "2 action", action: { }),
-                           DropDownAction(title: "3 action", action: { }),
-                           DropDownAction(title: "4 action", action: { }),
-                           DropDownAction(title: "5 action", action: { })]
-
-    static var previews: some View {
-        DropDownView(menuActions: actions)
+        .animation(.spring(), value: showMenu)
     }
 }
