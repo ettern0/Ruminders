@@ -13,18 +13,21 @@ import CoreData
 struct ListContext: View {
 
     @Environment(\.managedObjectContext) private var viewContext
+
     let list: ListSet?
     @State var color: Color
     @State var picture: String
     @State var name: String
+    @Binding var showListProperties: Bool
 
     let sizeOfRROfDescription = CGSize(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/5)
     var sizeOfPictureDescription: CGSize { CGSize(width: sizeOfRROfDescription.width*0.2, height: sizeOfRROfDescription.height*0.2) }
     @State var nameIsEditing: Bool = false
 
-    init(list: ListSet?) {
+    init(list: ListSet?, show showListProperties:  Binding<Bool>) {
 
         self.list = list
+        self._showListProperties = showListProperties
 
         if let color = list?.color {
             self.color = getColor(data: color)
@@ -43,7 +46,6 @@ struct ListContext: View {
         } else {
             self.name = ""
         }
-
     }
 
     var body: some View {
@@ -52,14 +54,23 @@ struct ListContext: View {
                 .ignoresSafeArea()
             ScrollView {
                 VStack {
+                    HStack {
+                        backButton
+                        Spacer()
+                        Text("Properties")
+                        Spacer()
+                        doneButton
+                    }
+                    .padding()
                     descriptionView.padding(.bottom, -20)
                     colorChoiseView.padding(.bottom, -20)
                     signChoiseView
-                    //Spacer()
                 }
-                .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2.5)
             }
         }
+        .navigationTitle("Properties")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: backButton, trailing: doneButton)
     }
 
     var colorAndSignOfListView: some View {
@@ -98,15 +109,12 @@ struct ListContext: View {
                             .foregroundColor(Color(.init(gray: 0, alpha: 0.2)))
                         }
                     }
-
                 }
             }
     }
 
     var descriptionView: some View {
         VStack {
-            Text("Properties")
-                .font(Font.headline.weight(.bold))
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: sizeOfRROfDescription.width, height: sizeOfRROfDescription.height)
                 .foregroundColor(.white)
@@ -139,7 +147,6 @@ struct ListContext: View {
                                    Circle()
                                        .foregroundColor(Color.random)
                                        .frame(width: 30, height: 30)
-
                                }
                            }
                            .padding(.horizontal)
@@ -180,10 +187,28 @@ struct ListContext: View {
 
     }
 
+    var backButton: some View {
+        Button {
+            showListProperties = false
+        } label: {
+            Text("Cancel")
+        }
+    }
+
+    var doneButton: some View {
+        Button {
+            addList()
+            showListProperties = false
+        } label: {
+            Text("Done")
+        }
+    }
+
     private func addList() {
         withAnimation {
             let newItem = ListSet(context: viewContext)
             newItem.timestamp = Date()
+            newItem.name = self.name
             do {
                 try viewContext.save()
             } catch {
@@ -206,17 +231,25 @@ struct ListView: View {
     private var lists: FetchedResults<ListSet>
     @State var activeList: Ruminders.ListSet?
     @State var showView = false
+    @State var showListProperties = false
     @State var activeView: AnyView?
+    @State private var navigationTitle = "Back"
 
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: self.activeView, isActive: $showView) {
-                    EmptyView()
+                NavigationLink(destination: self.activeView
+                                .navigationBarTitle(navigationTitle, displayMode: .inline), isActive: $showView)
+                { EmptyView() }
+                .sheet(isPresented: $showListProperties) {
+                    ListContext(list: activeList, show: $showListProperties)
                 }
                 List {
                     ForEach(lists) { list in
                         HStack {
+                            if let name = list.name {
+                                Text(name)
+                            }
                             Text(list.timestamp!, formatter: itemFormatter)
                             Spacer()
                             HStack {
@@ -224,19 +257,19 @@ struct ListView: View {
                                 Image(systemName: "chevron.right")}
                             .foregroundColor(.gray)
                         }
+                        .onLongPressGesture {
+                            activeList = list
+                        }
                         .background(Color(.white))
                             .contextMenu {
                                 buttonListProperty
                                 buttonListShare
                                 buttonListDelete
                             }
-                            .onLongPressGesture {
-                                activeList = list
-                            }
                     }
-
                     .onDelete(perform: deleteLists)
                 }
+                .navigationTitle(Text("My lists").font(Font.body)) //todo make custom
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
@@ -262,10 +295,7 @@ struct ListView: View {
 
     var buttonListProperty: some View {
         Button(action: {
-            if let list = activeList {
-                self.activeView = AnyView(ListContext(list: list))
-                self.showView = true
-            }
+                self.showListProperties = true
         },
                label: {
             HStack {
@@ -305,8 +335,10 @@ struct ListView: View {
 
     private func addList() {
         withAnimation {
-                self.activeView = AnyView(ListContext(list: nil))
-                self.showView = true
+            //self.activeView = AnyView(ListContext(list: nil))
+            //self.showView = true
+            self.activeList = nil
+            self.showListProperties = true
         }
     }
 
