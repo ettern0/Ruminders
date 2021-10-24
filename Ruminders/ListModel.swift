@@ -9,46 +9,41 @@ import Foundation
 import SwiftUI
 import CoreData
 
-extension Color {
-    static var random: Color {
-        return Color(
-            red: .random(in: 0...1),
-            green: .random(in: 0...1),
-            blue: .random(in: 0...1)
-        )
-    }
-}
 
 struct ListContext: View {
 
     @Environment(\.managedObjectContext) private var viewContext
-    let list: ListSet
+    let list: ListSet?
+    @State var color: Color
+    @State var picture: String
+    @State var name: String
 
-    var picture: String {
-        if let picture = list.picture {
-            return picture
-        } else {
-            //return ""
-            return "plus.circle.fill"
-        }
-    }
+    let sizeOfRROfDescription = CGSize(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/5)
+    var sizeOfPictureDescription: CGSize { CGSize(width: sizeOfRROfDescription.width*0.2, height: sizeOfRROfDescription.height*0.2) }
+    @State var nameIsEditing: Bool = false
 
-    var color: Color {
-        if let color = list.color {
-            return Color(color)
-        } else {
-            //return "white"
-            return Color.red
-        }
-    }
+    init(list: ListSet?) {
 
-    var name: String {
-        if let name = list.name {
-            return name
+        self.list = list
+
+        if let color = list?.color {
+            self.color = getColor(data: color)
         } else {
-            // return ""
-            return "Проверка"
+            self.color = Color.random
         }
+
+        if let picture = list?.picture {
+            self.picture = picture
+        } else {
+            self.picture = "list.bullet"
+        }
+
+        if let name = list?.name {
+            self.name = name
+        } else {
+            self.name = ""
+        }
+
     }
 
     var body: some View {
@@ -60,39 +55,66 @@ struct ListContext: View {
                     descriptionView.padding(.bottom, -20)
                     colorChoiseView.padding(.bottom, -20)
                     signChoiseView
-                    Spacer()
+                    //Spacer()
                 }
+                .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2.5)
             }
         }
     }
 
+    var colorAndSignOfListView: some View {
+        ZStack {
+            Circle()
+                .foregroundColor(color)
+                .frame(width: sizeOfPictureDescription.width * 2, height: sizeOfPictureDescription.height * 2)
+                .shadow(radius: 5)
+            Image(systemName: picture)
+                .resizable()
+                .scaledToFit()
+                .frame(width: sizeOfPictureDescription.width, height: sizeOfPictureDescription.height)
+                .foregroundColor(.white)
+        }
+        .padding(.bottom)
+    }
+
+    var textDescriptionView: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .frame(width: sizeOfRROfDescription.width*0.9, height: sizeOfRROfDescription.height/4)
+            .foregroundColor(Color(.systemGroupedBackground))
+            .overlay(alignment: .center) {
+                HStack {
+                    TextField("Name", text: $name) { isEditing in
+                            self.nameIsEditing = isEditing
+                    }
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(color)
+                    Spacer()
+                    if self.nameIsEditing && self.name != "" {
+                        Button {
+                            self.name = ""
+                        } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .padding(.trailing)
+                            .foregroundColor(Color(.init(gray: 0, alpha: 0.2)))
+                        }
+                    }
+
+                }
+            }
+    }
 
     var descriptionView: some View {
         VStack {
             Text("Properties")
                 .font(Font.headline.weight(.bold))
             RoundedRectangle(cornerRadius: 10)
-                .frame(height: UIScreen.main.bounds.height/5)
+                .frame(width: sizeOfRROfDescription.width, height: sizeOfRROfDescription.height)
                 .foregroundColor(.white)
                 .padding(.all)
                 .overlay {
                     VStack{
-                        Image(systemName: picture)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: UIScreen.main.bounds.height/10)
-                            .foregroundColor(color)
-                            .background(Color.white)
-                            .clipShape(Circle())
-
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: UIScreen.main.bounds.width*0.8, height: UIScreen.main.bounds.height/15)
-                            .foregroundColor(Color(.systemGroupedBackground))
-                            .overlay {
-                                Text(name)
-                                    .foregroundColor(color)
-                                    .font(.title2)
-                            }
+                        colorAndSignOfListView
+                        textDescriptionView
                     }
                 }
         }
@@ -157,6 +179,21 @@ struct ListContext: View {
             }
 
     }
+
+    private func addList() {
+        withAnimation {
+            let newItem = ListSet(context: viewContext)
+            newItem.timestamp = Date()
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
 }
 
 struct ListView: View {
@@ -169,7 +206,7 @@ struct ListView: View {
     private var lists: FetchedResults<ListSet>
     @State var activeList: Ruminders.ListSet?
     @State var showView = false
-    @State var activeView: AnyView? //= AnyView(EmptyView())
+    @State var activeView: AnyView?
 
     var body: some View {
         NavigationView {
@@ -268,16 +305,8 @@ struct ListView: View {
 
     private func addList() {
         withAnimation {
-            let newItem = ListSet(context: viewContext)
-            newItem.timestamp = Date()
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+                self.activeView = AnyView(ListContext(list: nil))
+                self.showView = true
         }
     }
 
