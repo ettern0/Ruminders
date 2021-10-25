@@ -14,7 +14,7 @@ struct ListContext: View {
 
     @Environment(\.managedObjectContext) private var viewContext
 
-    let list: ListSet?
+    var list: ListSet?
     @State var color: Color
     @State var picture: String
     @State var name: String
@@ -197,23 +197,23 @@ struct ListContext: View {
 
     var doneButton: some View {
         Button {
-            addList()
+            saveList()
             showListProperties = false
         } label: {
             Text("Done")
         }
     }
 
-    private func addList() {
+    private func saveList() {
         withAnimation {
-            let newItem = ListSet(context: viewContext)
-            newItem.timestamp = Date()
-            newItem.name = self.name
+            let item = list ?? ListSet(context: viewContext)
+            item.timestamp = Date()
+            item.name = self.name
+            item.picture = picture
+            item.color = getUIDataFromColor(color: color)
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -246,26 +246,16 @@ struct ListView: View {
                 }
                 List {
                     ForEach(lists) { list in
-                        HStack {
-                            if let name = list.name {
-                                Text(name)
+                        listRawView(list: list)
+                            .onLongPressGesture {
+                                activeList = list
                             }
-                            Text(list.timestamp!, formatter: itemFormatter)
-                            Spacer()
-                            HStack {
-                            Text("0")
-                                Image(systemName: "chevron.right")}
-                            .foregroundColor(.gray)
-                        }
-                        .onLongPressGesture {
-                            activeList = list
-                        }
-                        .background(Color(.white))
-                            .contextMenu {
-                                buttonListProperty
-                                buttonListShare
-                                buttonListDelete
-                            }
+                            .background(Color(.white))
+                                .contextMenu {
+                                    buttonListProperty
+                                    buttonListShare
+                                    buttonListDelete
+                                }
                     }
                     .onDelete(perform: deleteLists)
                 }
@@ -335,8 +325,6 @@ struct ListView: View {
 
     private func addList() {
         withAnimation {
-            //self.activeView = AnyView(ListContext(list: nil))
-            //self.showView = true
             self.activeList = nil
             self.showListProperties = true
         }
@@ -356,6 +344,46 @@ struct ListView: View {
         }
     }
 }
+
+struct listRawView: View {
+    var list: Ruminders.ListSet
+
+    var color: Color {
+
+        if let colorData = list.color {
+            return getColor(data: colorData)
+        } else {
+            return Color(.white)
+        }
+    }
+
+    var picture: some View {
+        Image(systemName: list.picture ?? "")
+    }
+
+    var name: some View {
+        Text(list.name ?? "")
+    }
+
+    var body: some View {
+        HStack {
+            ZStack {
+                Circle()
+                    .foregroundColor(color)
+                picture
+                    .foregroundColor(.white)
+            }
+            .frame(width: 30, height: 30, alignment: .leading)
+            name
+            Spacer()
+            HStack {
+            Text("0")
+                Image(systemName: "chevron.right")}
+            .foregroundColor(.gray)
+        }
+    }
+}
+
 
 //style of picture buttons
 struct ToolbarButtonStyle: LabelStyle {

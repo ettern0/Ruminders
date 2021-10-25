@@ -10,11 +10,17 @@ import SwiftUI
 import CoreData
 
 
-func saveClorInData(obj: ListSet) {
+func getUIDataFromColor(color: Color) -> Data {
+    //    do {
+    //        try obj.color = NSKeyedArchiver.archivedData(withRootObject: UIColor.blue, requiringSecureCoding: false)
+    //    } catch {
+    //        print(error)
+    //    }
+
     do {
-        try obj.color = NSKeyedArchiver.archivedData(withRootObject: UIColor.blue, requiringSecureCoding: false)
+        return try NSKeyedArchiver.archivedData(withRootObject: UIColor(color), requiringSecureCoding: false)
     } catch {
-        print(error)
+        return Data()
     }
 }
 
