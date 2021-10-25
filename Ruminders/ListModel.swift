@@ -18,11 +18,16 @@ struct ListContext: View {
     @State var color: Color
     @State var picture: String
     @State var name: String
+    @State var emojiText: String
     @Binding var showListProperties: Bool
 
     let sizeOfRROfDescription = CGSize(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/5)
     var sizeOfPictureDescription: CGSize { CGSize(width: sizeOfRROfDescription.width*0.2, height: sizeOfRROfDescription.height*0.2) }
     @State var nameIsEditing: Bool = false
+    let colorsArray: Array<Color> = [.red, .orange, .yellow, .green, .blue, .brown, .purple, .mint, .pink, .gray, .teal]
+    let signArray: Array<String> = ["list.bullet", "pencil", "rectangle.and.pencil.and.ellipsis", "lasso", "scissors", "wand.and.rays", "paintbrush", "folder",
+                                    "calendar", "bookmark", "paperclip", "command.circle", "delete.left", "network", "moon.stars.fill", "cloud.fill", "snowflake",
+                                    "circle.hexagongrid.fill", "mic", "suit.heart", "star", "bell", "message", "phone"]
 
     init(list: ListSet?, show showListProperties:  Binding<Bool>) {
 
@@ -46,6 +51,8 @@ struct ListContext: View {
         } else {
             self.name = ""
         }
+
+        self.emojiText = ""
     }
 
     var body: some View {
@@ -130,36 +137,30 @@ struct ListContext: View {
 
     var colorChoiseView: some View {
 
-        let data = (1...10).map { "Item \($0)" }
-
          let columns = [
             GridItem(.adaptive(minimum: 40))
          ]
 
         return RoundedRectangle(cornerRadius: 10)
-            .frame(height: UIScreen.main.bounds.height/8)
+            .frame(width: sizeOfRROfDescription.width, height: sizeOfRROfDescription.height*0.6)
             .foregroundColor(.white)
             .padding(.all)
             .overlay {
-                ScrollView {
-                           LazyVGrid(columns: columns, spacing: 15) {
-                               ForEach(data, id: \.self) { item in
-                                   Circle()
-                                       .foregroundColor(Color.random)
-                                       .frame(width: 30, height: 30)
-                               }
-                           }
-                           .padding(.horizontal)
-                       }
-                .padding(.horizontal, 5)
-                       .frame(maxHeight: UIScreen.main.bounds.height/10)
+                LazyVGrid(columns: columns, spacing: 15) {
+                    ForEach(colorsArray, id: \.self) { item in
+                        Circle()
+                            .foregroundColor(item)
+                            .frame(width: 30, height: 30)
+                            .onTapGesture {
+                                self.color = item
+                            }
                     }
-
+                }
+                .frame(width: sizeOfRROfDescription.width*0.9, height: sizeOfRROfDescription.height*0.6)
             }
+    }
 
     var signChoiseView: some View {
-
-        let data = (1...100).map { "Item \($0)" }
 
         let columns = [
             GridItem(.adaptive(minimum: 40))
@@ -172,10 +173,16 @@ struct ListContext: View {
             .overlay {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 15) {
-                        ForEach(data, id: \.self) { item in
+                        EmojiTF(emojiText: $emojiText)
+                        ForEach(signArray, id: \.self) { _sign in
                             Circle()
-                                .foregroundColor(Color.random)
+                                .foregroundColor(Color(.systemGroupedBackground))
                                 .frame(width: 30, height: 30)
+                                .overlay {
+                                    Image(systemName: _sign)}
+                                .onTapGesture {
+                                    self.picture = _sign
+                                }
 
                         }
                     }
@@ -242,13 +249,13 @@ struct ListView: View {
                                 .navigationBarTitle(navigationTitle, displayMode: .inline), isActive: $showView)
                 { EmptyView() }
                 .sheet(isPresented: $showListProperties) {
-                    ListContext(list: activeList, show: $showListProperties)
+                    ListContext(list: self.activeList, show: $showListProperties)
                 }
                 List {
                     ForEach(lists) { list in
                         listRawView(list: list)
                             .onLongPressGesture {
-                                activeList = list
+                                    self.activeList = list
                             }
                             .background(Color(.white))
                                 .contextMenu {
@@ -259,7 +266,7 @@ struct ListView: View {
                     }
                     .onDelete(perform: deleteLists)
                 }
-                .navigationTitle(Text("My lists").font(Font.body)) //todo make custom
+                .navigationTitle(Text("My lists"))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
@@ -267,7 +274,6 @@ struct ListView: View {
                     ToolbarItem(placement: .bottomBar) {
                         toolbarCustomButtom
                     }
-
                 }
             }
         }
@@ -336,8 +342,6 @@ struct ListView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -366,7 +370,7 @@ struct listRawView: View {
     }
 
     var body: some View {
-        HStack {
+        Group{HStack {
             ZStack {
                 Circle()
                     .foregroundColor(color)
@@ -382,8 +386,8 @@ struct listRawView: View {
             .foregroundColor(.gray)
         }
     }
+    }
 }
-
 
 //style of picture buttons
 struct ToolbarButtonStyle: LabelStyle {
