@@ -76,19 +76,28 @@ class UIEmojiTextField: UITextField {
     }
 }
 
+struct EmodjiType: View {
+    @State var searchText: String = ""
+    @Binding var test: String
+
+    var body: some View {
+        NavigationView {
+            EmptyView()
+                .navigationBarItems(leading: TextField("Placeholder", text: self.$searchText))
+        }
+    }
+}
+
 //*Emoji keyBoard
 struct EmojiTF: View {
-    @Binding var emojiText: String
 
-    init(emojiText:  Binding<String>) {
-        self._emojiText = emojiText
-    }
+    @State var emojiText: String = ""
 
     var body: some View {
             ZStack {
                 Text("😄")
-                TextFieldWrapperView(text: self._emojiText)
-                    .frame(width: 5, height: 5, alignment: .center)
+                TextFieldWrapperView(text: $emojiText)
+                    .frame(width: 15, height: 15, alignment: .center)
                     .background(Color(.red))
                     .opacity(0.1)
             }
@@ -98,7 +107,8 @@ struct EmojiTF: View {
 struct TextFieldWrapperView: UIViewRepresentable {
     @Binding var text: String
     func makeCoordinator() -> TFCoordinator {
-        TFCoordinator(self)
+        return TFCoordinator(self)
+
     }
 }
 
@@ -120,7 +130,6 @@ class TFCoordinator: NSObject, UITextFieldDelegate {
         self.parent = textField
     }
 }
-
 
 class EmojiTextField: UITextField {
 

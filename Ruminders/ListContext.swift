@@ -1,38 +1,36 @@
 //
-//  ListModel.swift
+//  ListContext.swift
 //  Ruminders
 //
-//  Created by Евгений Сердюков on 22.10.2021.
+//  Created by Евгений Сердюков on 26.10.2021.
 //
 
-import Foundation
 import SwiftUI
-import CoreData
-
 
 struct ListContext: View {
-
     @Environment(\.managedObjectContext) private var viewContext
 
     var list: ListSet?
     @State var color: Color
     @State var picture: String
+    @State var thePictureHasSystemName: Bool
     @State var name: String
     @State var emojiText: String
-    @Binding var showListProperties: Bool
+    @State var nameIsEditing: Bool = false
+    @FocusState private var emojiIsFocused: Bool
+    @Binding var showListPropertiesItem: ListPropertiesState?
 
     let sizeOfRROfDescription = CGSize(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/5)
     var sizeOfPictureDescription: CGSize { CGSize(width: sizeOfRROfDescription.width*0.2, height: sizeOfRROfDescription.height*0.2) }
-    @State var nameIsEditing: Bool = false
     let colorsArray: Array<Color> = [.red, .orange, .yellow, .green, .blue, .brown, .purple, .mint, .pink, .gray, .teal]
     let signArray: Array<String> = ["list.bullet", "pencil", "rectangle.and.pencil.and.ellipsis", "lasso", "scissors", "wand.and.rays", "paintbrush", "folder",
                                     "calendar", "bookmark", "paperclip", "command.circle", "delete.left", "network", "moon.stars.fill", "cloud.fill", "snowflake",
                                     "circle.hexagongrid.fill", "mic", "suit.heart", "star", "bell", "message", "phone"]
 
-    init(list: ListSet?, show showListProperties:  Binding<Bool>) {
+    init(list: ListSet?, show showListProperties:  Binding<ListPropertiesState?>) {
 
         self.list = list
-        self._showListProperties = showListProperties
+        self._showListPropertiesItem = showListProperties
 
         if let color = list?.color {
             self.color = getColor(data: color)
@@ -50,6 +48,12 @@ struct ListContext: View {
             self.name = name
         } else {
             self.name = ""
+        }
+
+        if let thePictureHasSystemName = list?.thePictureHasSystemName {
+            self.thePictureHasSystemName = thePictureHasSystemName
+        } else {
+            thePictureHasSystemName = true
         }
 
         self.emojiText = ""
@@ -86,11 +90,15 @@ struct ListContext: View {
                 .foregroundColor(color)
                 .frame(width: sizeOfPictureDescription.width * 2, height: sizeOfPictureDescription.height * 2)
                 .shadow(radius: 5)
-            Image(systemName: picture)
-                .resizable()
-                .scaledToFit()
-                .frame(width: sizeOfPictureDescription.width, height: sizeOfPictureDescription.height)
-                .foregroundColor(.white)
+            if thePictureHasSystemName {
+                Image(systemName: picture)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: sizeOfPictureDescription.width, height: sizeOfPictureDescription.height)
+                    .foregroundColor(.white)
+            } else {
+                Text(picture)
+            }
         }
         .padding(.bottom)
     }
@@ -173,7 +181,20 @@ struct ListContext: View {
             .overlay {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 15) {
-                        EmojiTF(emojiText: $emojiText)
+                        ZStack {
+                            if picture == "" {
+                                TextField("", text: $picture).focused($emojiIsFocused)
+                                    .opacity(0)
+                            }
+                            Button {
+                                self.picture = ""
+                                self.emojiIsFocused = true
+                                self.thePictureHasSystemName = true
+                            } label: {
+                                Text("😄")
+                            }
+                        }
+
                         ForEach(signArray, id: \.self) { _sign in
                             Circle()
                                 .foregroundColor(Color(.systemGroupedBackground))
@@ -182,6 +203,7 @@ struct ListContext: View {
                                     Image(systemName: _sign)}
                                 .onTapGesture {
                                     self.picture = _sign
+                                    self.thePictureHasSystemName = true
                                 }
 
                         }
@@ -196,7 +218,7 @@ struct ListContext: View {
 
     var backButton: some View {
         Button {
-            showListProperties = false
+            showListPropertiesItem = nil
         } label: {
             Text("Cancel")
         }
@@ -205,203 +227,24 @@ struct ListContext: View {
     var doneButton: some View {
         Button {
             saveList()
-            showListProperties = false
+            showListPropertiesItem = nil
         } label: {
             Text("Done")
         }
     }
 
     private func saveList() {
-        withAnimation {
-            let item = list ?? ListSet(context: viewContext)
-            item.timestamp = Date()
-            item.name = self.name
-            item.picture = picture
-            item.color = getUIDataFromColor(color: color)
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        let item = list ?? ListSet(context: viewContext)
+        item.timestamp = Date()
+        item.name = self.name
+        item.picture = picture
+        item.thePictureHasSystemName = thePictureHasSystemName
+        item.color = getUIDataFromColor(color: color)
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 }
-
-struct ListView: View {
-
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \ListSet.timestamp, ascending: true)],
-        animation: .default)
-    private var lists: FetchedResults<ListSet>
-    @State var activeList: Ruminders.ListSet?
-    @State var showView = false
-    @State var showListProperties = false
-    @State var activeView: AnyView?
-    @State private var navigationTitle = "Back"
-
-    var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(destination: self.activeView
-                                .navigationBarTitle(navigationTitle, displayMode: .inline), isActive: $showView)
-                { EmptyView() }
-                .sheet(isPresented: $showListProperties) {
-                    ListContext(list: self.activeList, show: $showListProperties)
-                }
-                List {
-                    ForEach(lists) { list in
-                        listRawView(list: list)
-                            .onLongPressGesture {
-                                    self.activeList = list
-                            }
-                            .background(Color(.white))
-                                .contextMenu {
-                                    buttonListProperty
-                                    buttonListShare
-                                    buttonListDelete
-                                }
-                    }
-                    .onDelete(perform: deleteLists)
-                }
-                .navigationTitle(Text("My lists"))
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        toolbarCustomButtom
-                    }
-                }
-            }
-        }
-    }
-
-    var toolbarCustomButtom: some View {
-        HStack {
-            Button(action: { }) { Label("Notification", systemImage: "plus.circle.fill") }
-            .labelStyle(ToolbarButtonStyle())
-            Spacer()
-            Button(action: addList) { Label("add list", systemImage: "") }
-            .labelStyle(ToolbarButtonStyle())
-        }
-    }
-
-    var buttonListProperty: some View {
-        Button(action: {
-                self.showListProperties = true
-        },
-               label: {
-            HStack {
-                Text("Show list property")
-                Spacer()
-                Image(systemName: "pencil")
-            }
-        })
-    }
-
-    var buttonListShare: some View {
-        Button(action: {},
-               label: {
-            HStack {
-                Text("Share list")
-                Spacer()
-                Image(systemName: "person.crop.circle.badge.plus")
-            }
-        })
-    }
-
-    var buttonListDelete: some View {
-        return Button(role: .destructive) {
-            if let list = activeList {
-                let index = lists.firstIndex(of: list)
-                let indexSet = IndexSet(integer: index!)
-                deleteLists(offsets: indexSet)
-                }
-        } label: {
-            HStack {
-                Text("Delete list")
-                Spacer()
-                Image(systemName: "trash")
-            }
-        }
-    }
-
-    private func addList() {
-        withAnimation {
-            self.activeList = nil
-            self.showListProperties = true
-        }
-    }
-
-     func deleteLists(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { lists[$0] }.forEach(viewContext.delete)
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-}
-
-struct listRawView: View {
-    var list: Ruminders.ListSet
-
-    var color: Color {
-
-        if let colorData = list.color {
-            return getColor(data: colorData)
-        } else {
-            return Color(.white)
-        }
-    }
-
-    var picture: some View {
-        Image(systemName: list.picture ?? "")
-    }
-
-    var name: some View {
-        Text(list.name ?? "")
-    }
-
-    var body: some View {
-        Group{HStack {
-            ZStack {
-                Circle()
-                    .foregroundColor(color)
-                picture
-                    .foregroundColor(.white)
-            }
-            .frame(width: 30, height: 30, alignment: .leading)
-            name
-            Spacer()
-            HStack {
-            Text("0")
-                Image(systemName: "chevron.right")}
-            .foregroundColor(.gray)
-        }
-    }
-    }
-}
-
-//style of picture buttons
-struct ToolbarButtonStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            configuration.icon.font(.headline)
-            configuration.title.font(.subheadline)
-        }.padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: -10))
-    }
-}
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()

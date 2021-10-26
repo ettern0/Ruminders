@@ -4,9 +4,10 @@
         <attribute name="color" optional="YES" attributeType="Transformable" customClassName="Data"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="picture" optional="YES" attributeType="String"/>
+        <attribute name="thePictureHasSystemName" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="ListSet" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="ListSet" positionX="-63" positionY="-18" width="128" height="104"/>
     </elements>
 </model>
