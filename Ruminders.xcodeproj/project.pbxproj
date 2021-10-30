@@ -22,6 +22,7 @@
 		7796823827282A5400705B18 /* ListContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823727282A5400705B18 /* ListContext.swift */; };
 		7796823A27282A8000705B18 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823927282A8000705B18 /* ListView.swift */; };
 		7796823C27282AAA00705B18 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823B27282AAA00705B18 /* ListRowView.swift */; };
+		77FAEBA5272DC8CC00382DBC /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FAEBA4272DC8CC00382DBC /* TasksView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		7796823727282A5400705B18 /* ListContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContext.swift; sourceTree = "<group>"; };
 		7796823927282A8000705B18 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		7796823B27282AAA00705B18 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
+		77FAEBA4272DC8CC00382DBC /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				7796823927282A8000705B18 /* ListView.swift */,
 				7796823B27282AAA00705B18 /* ListRowView.swift */,
 				7796823727282A5400705B18 /* ListContext.swift */,
+				77FAEBA4272DC8CC00382DBC /* TasksView.swift */,
 				77852D932723349200137E88 /* MenuModel.swift */,
 				772FEAC727215937006C1FE8 /* ContentView.swift */,
 				772FEAC527215937006C1FE8 /* RumindersApp.swift */,
@@ -284,6 +287,7 @@
 				772FEACF27215939006C1FE8 /* Persistence.swift in Sources */,
 				772FEAC827215937006C1FE8 /* ContentView.swift in Sources */,
 				77852D942723349200137E88 /* MenuModel.swift in Sources */,
+				77FAEBA5272DC8CC00382DBC /* TasksView.swift in Sources */,
 				77852D9627233D9500137E88 /* ListPropertiesState.swift in Sources */,
 				772FEAC627215937006C1FE8 /* RumindersApp.swift in Sources */,
 				7796823827282A5400705B18 /* ListContext.swift in Sources */,
