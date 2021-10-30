@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ListRowView: View {
+
     var list: Ruminders.ListSet
 
     var color: Color {
@@ -19,8 +20,13 @@ struct ListRowView: View {
         }
     }
 
-    var picture: some View {
-        Image(systemName: list.picture ?? "")
+    var picture: AnyView {
+        let picture = list.picture ?? ""
+        if list.thePictureHasSystemName {
+            return  AnyView(Image(systemName: picture))
+        } else {
+            return AnyView(Text(picture))
+        }
     }
 
     var name: some View {

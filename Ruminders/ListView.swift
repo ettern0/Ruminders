@@ -107,11 +107,11 @@ struct ListView: View {
 
     var buttonListDelete: some View {
         return Button(role: .destructive) {
-            if let list = activeList {
+            if let list = self.selectedList {
                 let index = lists.firstIndex(of: list)
                 let indexSet = IndexSet(integer: index!)
                 deleteLists(offsets: indexSet)
-                }
+            }
         } label: {
             HStack {
                 Text("Delete list")
@@ -123,7 +123,7 @@ struct ListView: View {
 
     private func addList() {
         withAnimation {
-            self.activeList = nil
+            //self.activeList = nil
             self.showListPropertiesItem = .empty
         }
     }
@@ -148,5 +148,12 @@ private struct ToolbarButtonStyle: LabelStyle {
             configuration.icon.font(.headline)
             configuration.title.font(.subheadline)
         }.padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: -10))
+    }
+}
+
+
+struct ListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -98,6 +98,7 @@ struct ListContext: View {
                     .foregroundColor(.white)
             } else {
                 Text(picture)
+                    .font(.system(size: 60))
             }
         }
         .padding(.bottom)
@@ -182,14 +183,18 @@ struct ListContext: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 15) {
                         ZStack {
-                            if picture == "" {
-                                TextField("", text: $picture).focused($emojiIsFocused)
+                            if !self.thePictureHasSystemName {
+                            //if picture == "" {
+                                TextField("", text: $picture)
+                                    .focused($emojiIsFocused)
                                     .opacity(0)
                             }
                             Button {
                                 self.picture = ""
-                                self.emojiIsFocused = true
-                                self.thePictureHasSystemName = true
+                                self.thePictureHasSystemName = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {  /// Anything over 0.5 seems to work
+                                    self.emojiIsFocused = true
+                                }
                             } label: {
                                 Text("😄")
                             }
