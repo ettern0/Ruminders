@@ -4,6 +4,7 @@
         <attribute name="color" optional="YES" attributeType="Transformable" customClassName="Data"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="picture" optional="YES" attributeType="String"/>
+        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="thePictureHasSystemName" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tasks" inverseName="listSet" inverseEntity="Tasks"/>
@@ -15,7 +16,7 @@
         <relationship name="listSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListSet" inverseName="tasks" inverseEntity="ListSet"/>
     </entity>
     <elements>
-        <element name="ListSet" positionX="-663.109375" positionY="-54.71875" width="128" height="119"/>
+        <element name="ListSet" positionX="-663.109375" positionY="-54.71875" width="128" height="134"/>
         <element name="Tasks" positionX="-1297.20703125" positionY="-26.05078125" width="128" height="103"/>
     </elements>
 </model>

@@ -60,7 +60,6 @@ struct LottieButton: UIViewRepresentable {
         Coordinator(self)
     }
 
-
     class Coordinator: NSObject {
         let parent: LottieButton
 

@@ -15,6 +15,7 @@ struct ListContext: View {
     @State var name: String
     @State var emojiText: String
     @State var nameIsEditing: Bool = false
+    @State var position: Int32
     @FocusState private var emojiIsFocused: Bool
     @Binding var showListPropertiesItem: ListPropertiesState?
     var list: ListSet?
@@ -76,6 +77,11 @@ struct ListContext: View {
             thePictureHasSystemName = true
         }
 
+        if let position = list?.position {
+            self.position = position
+        } else {
+            position = Int32(listViewModel.lists.count + 1)
+        }
         self.emojiText = ""
     }
 
@@ -210,7 +216,8 @@ struct ListContext: View {
                                name: name,
                                picture: picture,
                                hasSysName: thePictureHasSystemName,
-                               color: color)
+                               color: color,
+                               position: Int(position))
             showListPropertiesItem = nil
         } label: {
             Text("Done")

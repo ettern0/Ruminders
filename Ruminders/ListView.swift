@@ -17,23 +17,15 @@ public struct ListView: View {
     private var navigationTitle = "Back"
 
    public  var body: some View {
-
-        NavigationView {
+//       ZStack {
+//           Color(.systemGroupedBackground)
+//               .ignoresSafeArea()
+//
+//
+//       }
+       NavigationView {
             VStack {
-                NavigationLink(
-                    destination: self.activeView.navigationBarTitle(navigationTitle, displayMode: .inline),
-                    isActive: $showView
-                ) {
-                    EmptyView()
-                }
-                .sheet(item: $showListPropertiesItem, content: { list in
-                    switch list {
-                    case .list(let list):
-                        ListContext(list: list, show: $showListPropertiesItem)
-                    case .empty:
-                        ListContext(list: nil, show: $showListPropertiesItem)
-                    }
-                })
+                navigation
                 List {
                     ForEach(listsViewModel.lists) { element in
                         ListRowView(list: element)
@@ -48,20 +40,42 @@ public struct ListView: View {
                                 }
                     }
                     .onDelete(perform: deleteLists)
+                    .onMove { self.moveList(from: $0, to: $1) }
                 }
-                .navigationTitle(
-                    Text("My lists"))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
-                        LottieButton(name: "gridListAnimation", action: {})
                     }
                     ToolbarItem(placement: .bottomBar) {
                         toolbarCustomButtom
                     }
+                    ToolbarItem(placement: .principal) {
+                        HStack {
+                        Text("princ")
+                                .font(.headline)
+                            LottieView(name: "gridListAnimation")
+                        }
+                    }
                 }
             }
         }
+    }
+
+    var navigation: some View {
+        NavigationLink(
+            destination: self.activeView.navigationBarTitle(navigationTitle, displayMode: .inline),
+            isActive: $showView
+        ) {
+            EmptyView()
+        }
+        .sheet(item: $showListPropertiesItem, content: { list in
+            switch list {
+            case .list(let list):
+                ListContext(list: list, show: $showListPropertiesItem)
+            case .empty:
+                ListContext(list: nil, show: $showListPropertiesItem)
+            }
+        })
     }
 
     var toolbarCustomButtom: some View {
@@ -127,6 +141,13 @@ public struct ListView: View {
          array.forEach { element in
              listsViewModel.delete(list: element)
          }
+    }
+
+    func moveList(from: IndexSet, to: Int) {
+        let array = from.map { listsViewModel.lists[$0] }
+        array.forEach { element in
+            listsViewModel.save(list: element, position: to)
+        }
     }
 }
 

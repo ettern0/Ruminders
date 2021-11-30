@@ -17,7 +17,7 @@ public struct ListsModel {
 
         let request = ListSet.fetchRequest()
         request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \ListSet.timestamp, ascending: true)
+            NSSortDescriptor(keyPath: \ListSet.position, ascending: true)
         ]
         let result = try? viewContext.fetch(request)
         self.lists = result
@@ -29,13 +29,15 @@ public struct ListsModel {
                       name: String,
                       picture: String,
                       hasSysName: Bool,
-                      color: Color) {
+                      color: Color,
+                       position: Int) {
         let item = list ?? ListSet(context: viewContext)
         item.timestamp = Date()
         item.name = name
         item.picture = picture
         item.thePictureHasSystemName = hasSysName
         item.color = getUIDataFromColor(color: color)
+        item.position = Int32(position)
         do {
             try viewContext.save()
         } catch {
