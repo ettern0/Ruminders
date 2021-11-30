@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24848DC509509023E91016CA /* Pods_Ruminders_RumindersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6E988ABBEA188479425394F /* Pods_Ruminders_RumindersUITests.framework */; };
+		35885CD20DD2CC45A84E3346 /* Pods_RumindersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D1C8A7913D36BDCFE6950B /* Pods_RumindersTests.framework */; };
 		772FEAC627215937006C1FE8 /* RumindersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEAC527215937006C1FE8 /* RumindersApp.swift */; };
 		772FEAC827215937006C1FE8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEAC727215937006C1FE8 /* ContentView.swift */; };
 		772FEACA27215939006C1FE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772FEAC927215939006C1FE8 /* Assets.xcassets */; };
@@ -17,12 +19,17 @@
 		772FEAE627215939006C1FE8 /* RumindersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEAE527215939006C1FE8 /* RumindersUITests.swift */; };
 		772FEAE827215939006C1FE8 /* RumindersUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEAE727215939006C1FE8 /* RumindersUITestsLaunchTests.swift */; };
 		7766C2AA2725B89400406714 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766C2A92725B89400406714 /* General.swift */; };
-		77852D942723349200137E88 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77852D932723349200137E88 /* MenuModel.swift */; };
 		77852D9627233D9500137E88 /* ListPropertiesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77852D9527233D9500137E88 /* ListPropertiesState.swift */; };
 		7796823827282A5400705B18 /* ListContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823727282A5400705B18 /* ListContext.swift */; };
 		7796823A27282A8000705B18 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823927282A8000705B18 /* ListView.swift */; };
 		7796823C27282AAA00705B18 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823B27282AAA00705B18 /* ListRowView.swift */; };
+		77B9DB2627561CA200690FF8 /* pencilAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 77B9DB2527561CA200690FF8 /* pencilAnimation.json */; };
+		77B9DB2827561DD500690FF8 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2727561DD500690FF8 /* Animation.swift */; };
+		77B9DB2A27562B9E00690FF8 /* gridListAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 77B9DB2927562B9E00690FF8 /* gridListAnimation.json */; };
+		77B9DB2C27562FE000690FF8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2B27562FE000690FF8 /* Model.swift */; };
+		77B9DB2E275631ED00690FF8 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2D275631ED00690FF8 /* ViewModel.swift */; };
 		77FAEBA5272DC8CC00382DBC /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FAEBA4272DC8CC00382DBC /* TasksView.swift */; };
+		93BB503B697F1721D22F9960 /* Pods_Ruminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED04F7026486398C94E139A /* Pods_Ruminders.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +50,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1578E67E0CA7C19D04432546 /* Pods-RumindersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RumindersTests.release.xcconfig"; path = "Target Support Files/Pods-RumindersTests/Pods-RumindersTests.release.xcconfig"; sourceTree = "<group>"; };
+		19BE4B3AA095E755D7BC37D6 /* Pods-Ruminders-RumindersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ruminders-RumindersUITests.debug.xcconfig"; path = "Target Support Files/Pods-Ruminders-RumindersUITests/Pods-Ruminders-RumindersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		25D1C8A7913D36BDCFE6950B /* Pods_RumindersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RumindersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DEFB76007179638CAE3BB4F /* Pods-Ruminders-RumindersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ruminders-RumindersUITests.release.xcconfig"; path = "Target Support Files/Pods-Ruminders-RumindersUITests/Pods-Ruminders-RumindersUITests.release.xcconfig"; sourceTree = "<group>"; };
 		772FEAC227215937006C1FE8 /* Ruminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ruminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		772FEAC527215937006C1FE8 /* RumindersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RumindersApp.swift; sourceTree = "<group>"; };
 		772FEAC727215937006C1FE8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -56,12 +67,21 @@
 		772FEAE527215939006C1FE8 /* RumindersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RumindersUITests.swift; sourceTree = "<group>"; };
 		772FEAE727215939006C1FE8 /* RumindersUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RumindersUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7766C2A92725B89400406714 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
-		77852D932723349200137E88 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		77852D9527233D9500137E88 /* ListPropertiesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPropertiesState.swift; sourceTree = "<group>"; };
 		7796823727282A5400705B18 /* ListContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContext.swift; sourceTree = "<group>"; };
 		7796823927282A8000705B18 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		7796823B27282AAA00705B18 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
+		77B9DB2527561CA200690FF8 /* pencilAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pencilAnimation.json; sourceTree = "<group>"; };
+		77B9DB2727561DD500690FF8 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		77B9DB2927562B9E00690FF8 /* gridListAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gridListAnimation.json; sourceTree = "<group>"; };
+		77B9DB2B27562FE000690FF8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		77B9DB2D275631ED00690FF8 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		77FAEBA4272DC8CC00382DBC /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		A64B44F2CEA707857C69F370 /* Pods-RumindersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RumindersTests.debug.xcconfig"; path = "Target Support Files/Pods-RumindersTests/Pods-RumindersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A6E988ABBEA188479425394F /* Pods_Ruminders_RumindersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ruminders_RumindersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB5041D3599D3E279E2EE76 /* Pods-Ruminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ruminders.debug.xcconfig"; path = "Target Support Files/Pods-Ruminders/Pods-Ruminders.debug.xcconfig"; sourceTree = "<group>"; };
+		DBF312C38957DD4C2957DCF9 /* Pods-Ruminders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ruminders.release.xcconfig"; path = "Target Support Files/Pods-Ruminders/Pods-Ruminders.release.xcconfig"; sourceTree = "<group>"; };
+		DED04F7026486398C94E139A /* Pods_Ruminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ruminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93BB503B697F1721D22F9960 /* Pods_Ruminders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35885CD20DD2CC45A84E3346 /* Pods_RumindersTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,12 +105,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24848DC509509023E91016CA /* Pods_Ruminders_RumindersUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6150C28786CEFDB89ECB463E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DAB5041D3599D3E279E2EE76 /* Pods-Ruminders.debug.xcconfig */,
+				DBF312C38957DD4C2957DCF9 /* Pods-Ruminders.release.xcconfig */,
+				19BE4B3AA095E755D7BC37D6 /* Pods-Ruminders-RumindersUITests.debug.xcconfig */,
+				6DEFB76007179638CAE3BB4F /* Pods-Ruminders-RumindersUITests.release.xcconfig */,
+				A64B44F2CEA707857C69F370 /* Pods-RumindersTests.debug.xcconfig */,
+				1578E67E0CA7C19D04432546 /* Pods-RumindersTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		772FEAB927215937006C1FE8 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +132,8 @@
 				772FEADA27215939006C1FE8 /* RumindersTests */,
 				772FEAE427215939006C1FE8 /* RumindersUITests */,
 				772FEAC327215937006C1FE8 /* Products */,
+				6150C28786CEFDB89ECB463E /* Pods */,
+				8094AF98C54EF3038352C86C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,16 +150,20 @@
 		772FEAC427215937006C1FE8 /* Ruminders */ = {
 			isa = PBXGroup;
 			children = (
+				77B9DB2527561CA200690FF8 /* pencilAnimation.json */,
+				77B9DB2927562B9E00690FF8 /* gridListAnimation.json */,
 				77852D9527233D9500137E88 /* ListPropertiesState.swift */,
 				7796823927282A8000705B18 /* ListView.swift */,
 				7796823B27282AAA00705B18 /* ListRowView.swift */,
 				7796823727282A5400705B18 /* ListContext.swift */,
 				77FAEBA4272DC8CC00382DBC /* TasksView.swift */,
-				77852D932723349200137E88 /* MenuModel.swift */,
 				772FEAC727215937006C1FE8 /* ContentView.swift */,
 				772FEAC527215937006C1FE8 /* RumindersApp.swift */,
+				77B9DB2727561DD500690FF8 /* Animation.swift */,
 				7766C2A92725B89400406714 /* General.swift */,
 				772FEAC927215939006C1FE8 /* Assets.xcassets */,
+				77B9DB2D275631ED00690FF8 /* ViewModel.swift */,
+				77B9DB2B27562FE000690FF8 /* Model.swift */,
 				772FEACE27215939006C1FE8 /* Persistence.swift */,
 				772FEAD027215939006C1FE8 /* Ruminders.xcdatamodeld */,
 				772FEACB27215939006C1FE8 /* Preview Content */,
@@ -154,6 +196,16 @@
 			path = RumindersUITests;
 			sourceTree = "<group>";
 		};
+		8094AF98C54EF3038352C86C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DED04F7026486398C94E139A /* Pods_Ruminders.framework */,
+				A6E988ABBEA188479425394F /* Pods_Ruminders_RumindersUITests.framework */,
+				25D1C8A7913D36BDCFE6950B /* Pods_RumindersTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,9 +213,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 772FEAEB27215939006C1FE8 /* Build configuration list for PBXNativeTarget "Ruminders" */;
 			buildPhases = (
+				DB82AFBB2044EF6B0E097255 /* [CP] Check Pods Manifest.lock */,
 				772FEABE27215937006C1FE8 /* Sources */,
 				772FEABF27215937006C1FE8 /* Frameworks */,
 				772FEAC027215937006C1FE8 /* Resources */,
+				058DFA511E13F754506649BD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,6 +232,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 772FEAEE27215939006C1FE8 /* Build configuration list for PBXNativeTarget "RumindersTests" */;
 			buildPhases = (
+				9E7718BAF560398B475AD871 /* [CP] Check Pods Manifest.lock */,
 				772FEAD327215939006C1FE8 /* Sources */,
 				772FEAD427215939006C1FE8 /* Frameworks */,
 				772FEAD527215939006C1FE8 /* Resources */,
@@ -196,9 +251,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 772FEAF127215939006C1FE8 /* Build configuration list for PBXNativeTarget "RumindersUITests" */;
 			buildPhases = (
+				88ECC54FC92F0B84DDEA5733 /* [CP] Check Pods Manifest.lock */,
 				772FEADD27215939006C1FE8 /* Sources */,
 				772FEADE27215939006C1FE8 /* Frameworks */,
 				772FEADF27215939006C1FE8 /* Resources */,
+				7010F573C9E0092EDD736241 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -258,8 +315,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77B9DB2A27562B9E00690FF8 /* gridListAnimation.json in Resources */,
 				772FEACD27215939006C1FE8 /* Preview Assets.xcassets in Resources */,
 				772FEACA27215939006C1FE8 /* Assets.xcassets in Resources */,
+				77B9DB2627561CA200690FF8 /* pencilAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +338,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		058DFA511E13F754506649BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ruminders/Pods-Ruminders-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ruminders/Pods-Ruminders-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ruminders/Pods-Ruminders-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7010F573C9E0092EDD736241 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ruminders-RumindersUITests/Pods-Ruminders-RumindersUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ruminders-RumindersUITests/Pods-Ruminders-RumindersUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ruminders-RumindersUITests/Pods-Ruminders-RumindersUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88ECC54FC92F0B84DDEA5733 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ruminders-RumindersUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E7718BAF560398B475AD871 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RumindersTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB82AFBB2044EF6B0E097255 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ruminders-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		772FEABE27215937006C1FE8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -286,14 +448,16 @@
 			files = (
 				772FEACF27215939006C1FE8 /* Persistence.swift in Sources */,
 				772FEAC827215937006C1FE8 /* ContentView.swift in Sources */,
-				77852D942723349200137E88 /* MenuModel.swift in Sources */,
 				77FAEBA5272DC8CC00382DBC /* TasksView.swift in Sources */,
+				77B9DB2C27562FE000690FF8 /* Model.swift in Sources */,
 				77852D9627233D9500137E88 /* ListPropertiesState.swift in Sources */,
 				772FEAC627215937006C1FE8 /* RumindersApp.swift in Sources */,
+				77B9DB2E275631ED00690FF8 /* ViewModel.swift in Sources */,
 				7796823827282A5400705B18 /* ListContext.swift in Sources */,
 				772FEAD227215939006C1FE8 /* Ruminders.xcdatamodeld in Sources */,
 				7796823C27282AAA00705B18 /* ListRowView.swift in Sources */,
 				7766C2AA2725B89400406714 /* General.swift in Sources */,
+				77B9DB2827561DD500690FF8 /* Animation.swift in Sources */,
 				7796823A27282A8000705B18 /* ListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,6 +613,7 @@
 		};
 		772FEAEC27215939006C1FE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAB5041D3599D3E279E2EE76 /* Pods-Ruminders.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -479,6 +644,7 @@
 		};
 		772FEAED27215939006C1FE8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBF312C38957DD4C2957DCF9 /* Pods-Ruminders.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -509,6 +675,7 @@
 		};
 		772FEAEF27215939006C1FE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A64B44F2CEA707857C69F370 /* Pods-RumindersTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -534,6 +701,7 @@
 		};
 		772FEAF027215939006C1FE8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1578E67E0CA7C19D04432546 /* Pods-RumindersTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -559,6 +727,7 @@
 		};
 		772FEAF227215939006C1FE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19BE4B3AA095E755D7BC37D6 /* Pods-Ruminders-RumindersUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -582,6 +751,7 @@
 		};
 		772FEAF327215939006C1FE8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DEFB76007179638CAE3BB4F /* Pods-Ruminders-RumindersUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListRowView: View {
 
+    @ObservedObject var listsViewModel: ListsViewModel = ListsViewModel.instance
     var list: Ruminders.ListSet
 
     var color: Color {
@@ -46,7 +47,8 @@ struct ListRowView: View {
                 Spacer()
                 HStack {
                     Text("0")
-                    Image(systemName: "chevron.right")}
+                    Image(systemName: "chevron.right")
+                }
                 .foregroundColor(.gray)
             }
             .overlay {

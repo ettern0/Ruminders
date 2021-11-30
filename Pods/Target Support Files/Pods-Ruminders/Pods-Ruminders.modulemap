@@ -1,0 +1,6 @@
+framework module Pods_Ruminders {
+  umbrella header "Pods-Ruminders-umbrella.h"
+
+  export *
+  module * { export * }
+}

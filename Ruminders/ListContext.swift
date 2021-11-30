@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ListContext: View {
-    @Environment(\.managedObjectContext) private var viewContext
 
-    var list: ListSet?
     @State var color: Color
     @State var picture: String
     @State var thePictureHasSystemName: Bool
@@ -19,13 +17,35 @@ struct ListContext: View {
     @State var nameIsEditing: Bool = false
     @FocusState private var emojiIsFocused: Bool
     @Binding var showListPropertiesItem: ListPropertiesState?
+    var list: ListSet?
+    let listViewModel: ListsViewModel = ListsViewModel.instance
+    let sizeOfRROfDescription = getSizeOfDescription()
+    let sizeOfPictureDescription = getsizeOfPictureDescription()
 
-    let sizeOfRROfDescription = CGSize(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/5)
-    var sizeOfPictureDescription: CGSize { CGSize(width: sizeOfRROfDescription.width*0.2, height: sizeOfRROfDescription.height*0.2) }
-    let colorsArray: Array<Color> = [.red, .orange, .yellow, .green, .blue, .brown, .purple, .mint, .pink, .gray, .teal]
-    let signArray: Array<String> = ["list.bullet", "pencil", "rectangle.and.pencil.and.ellipsis", "lasso", "scissors", "wand.and.rays", "paintbrush", "folder",
-                                    "calendar", "bookmark", "paperclip", "command.circle", "delete.left", "network", "moon.stars.fill", "cloud.fill", "snowflake",
-                                    "circle.hexagongrid.fill", "mic", "suit.heart", "star", "bell", "message", "phone"]
+    var body: some View {
+        ZStack(alignment: .top) {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
+            ScrollView {
+                VStack {
+                    HStack {
+                        backButton
+                        Spacer()
+                        Text("Properties")
+                        Spacer()
+                        doneButton
+                    }
+                    .padding()
+                    descriptionView.padding(.bottom, -20)
+                    colorChoiseView.padding(.bottom, -20)
+                    signChoiseView
+                }
+            }
+        }
+        .navigationTitle("Properties")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: backButton, trailing: doneButton)
+    }
 
     init(list: ListSet?, show showListProperties:  Binding<ListPropertiesState?>) {
 
@@ -57,31 +77,6 @@ struct ListContext: View {
         }
 
         self.emojiText = ""
-    }
-
-    var body: some View {
-        ZStack(alignment: .top) {
-            Color(.systemGroupedBackground)
-                .ignoresSafeArea()
-            ScrollView {
-                VStack {
-                    HStack {
-                        backButton
-                        Spacer()
-                        Text("Properties")
-                        Spacer()
-                        doneButton
-                    }
-                    .padding()
-                    descriptionView.padding(.bottom, -20)
-                    colorChoiseView.padding(.bottom, -20)
-                    signChoiseView
-                }
-            }
-        }
-        .navigationTitle("Properties")
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: backButton, trailing: doneButton)
     }
 
     var colorAndSignOfListView: some View {
@@ -156,7 +151,7 @@ struct ListContext: View {
             .padding(.all)
             .overlay {
                 LazyVGrid(columns: columns, spacing: 15) {
-                    ForEach(colorsArray, id: \.self) { item in
+                    ForEach(getColorsArray(), id: \.self) { item in
                         Circle()
                             .foregroundColor(item)
                             .frame(width: 30, height: 30)
@@ -182,25 +177,7 @@ struct ListContext: View {
             .overlay {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 15) {
-                        ZStack {
-                            if !self.thePictureHasSystemName {
-                            //if picture == "" {
-                                TextField("", text: $picture)
-                                    .focused($emojiIsFocused)
-                                    .opacity(0)
-                            }
-                            Button {
-                                self.picture = ""
-                                self.thePictureHasSystemName = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {  /// Anything over 0.5 seems to work
-                                    self.emojiIsFocused = true
-                                }
-                            } label: {
-                                Text("😄")
-                            }
-                        }
-
-                        ForEach(signArray, id: \.self) { _sign in
+                        ForEach(getSignArray(), id: \.self) { _sign in
                             Circle()
                                 .foregroundColor(Color(.systemGroupedBackground))
                                 .frame(width: 30, height: 30)
@@ -210,7 +187,6 @@ struct ListContext: View {
                                     self.picture = _sign
                                     self.thePictureHasSystemName = true
                                 }
-
                         }
                     }
                     .padding(.horizontal)
@@ -218,7 +194,6 @@ struct ListContext: View {
                 .padding(.horizontal, 5)
                 .frame(maxHeight: UIScreen.main.bounds.height/2 * 0.9)
             }
-
     }
 
     var backButton: some View {
@@ -231,25 +206,29 @@ struct ListContext: View {
 
     var doneButton: some View {
         Button {
-            saveList()
+            listViewModel.save(list: list,
+                               name: name,
+                               picture: picture,
+                               hasSysName: thePictureHasSystemName,
+                               color: color)
             showListPropertiesItem = nil
         } label: {
             Text("Done")
         }
     }
+}
 
-    private func saveList() {
-        let item = list ?? ListSet(context: viewContext)
-        item.timestamp = Date()
-        item.name = self.name
-        item.picture = picture
-        item.thePictureHasSystemName = thePictureHasSystemName
-        item.color = getUIDataFromColor(color: color)
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-    }
+func getSizeOfDescription() -> CGSize {
+    CGSize(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/5)
+}
+
+func getsizeOfPictureDescription() -> CGSize {
+    CGSize(width: getSizeOfDescription().width*0.2, height: getSizeOfDescription().height*0.2)
+}
+
+func getSignArray() -> Array<String> {
+    ["list.bullet", "pencil", "rectangle.and.pencil.and.ellipsis", "lasso","scissors", "wand.and.rays","paintbrush", "folder","calendar", "bookmark", "paperclip", "command.circle", "delete.left","network", "moon.stars.fill", "cloud.fill", "snowflake", "circle.hexagongrid.fill", "mic", "suit.heart", "star", "bell", "message", "phone"]
+}
+func getColorsArray() -> Array<Color> {
+    [.red, .orange, .yellow, .green, .blue, .brown, .purple, .mint, .pink, .gray, .teal]
 }

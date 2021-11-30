@@ -7,23 +7,17 @@
 
 import SwiftUI
 
-struct ListView: View {
+public struct ListView: View {
 
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \ListSet.timestamp, ascending: true)],
-        animation: .default)
-    private var lists: FetchedResults<ListSet>
-    @State var activeList: Ruminders.ListSet?
-
+    @ObservedObject var listsViewModel: ListsViewModel = ListsViewModel.instance
     @State var selectedList: ListSet?
     @State var showView = false
     @State var showListPropertiesItem: ListPropertiesState?
     @State var activeView: AnyView?
     private var navigationTitle = "Back"
 
-    var body: some View {
+   public  var body: some View {
+
         NavigationView {
             VStack {
                 NavigationLink(
@@ -41,11 +35,10 @@ struct ListView: View {
                     }
                 })
                 List {
-                    ForEach(lists) { list in
-                        ListRowView(list: list)
+                    ForEach(listsViewModel.lists) { element in
+                        ListRowView(list: element)
                             .onLongPressGesture {
-                                self.activeList = list
-                                self.selectedList = list
+                                self.selectedList = element
                             }
                             .background(Color(.white))
                                 .contextMenu {
@@ -56,10 +49,12 @@ struct ListView: View {
                     }
                     .onDelete(perform: deleteLists)
                 }
-                .navigationTitle(Text("My lists"))
+                .navigationTitle(
+                    Text("My lists"))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
+                        LottieButton(name: "gridListAnimation", action: {})
                     }
                     ToolbarItem(placement: .bottomBar) {
                         toolbarCustomButtom
@@ -108,7 +103,7 @@ struct ListView: View {
     var buttonListDelete: some View {
         return Button(role: .destructive) {
             if let list = self.selectedList {
-                let index = lists.firstIndex(of: list)
+                let index = listsViewModel.lists.firstIndex(of: list)
                 let indexSet = IndexSet(integer: index!)
                 deleteLists(offsets: indexSet)
             }
@@ -123,21 +118,15 @@ struct ListView: View {
 
     private func addList() {
         withAnimation {
-            //self.activeList = nil
             self.showListPropertiesItem = .empty
         }
     }
 
      func deleteLists(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { lists[$0] }.forEach(viewContext.delete)
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
+         let array = offsets.map { listsViewModel.lists[$0] }
+         array.forEach { element in
+             listsViewModel.delete(list: element)
+         }
     }
 }
 
@@ -152,8 +141,3 @@ private struct ToolbarButtonStyle: LabelStyle {
 }
 
 
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
