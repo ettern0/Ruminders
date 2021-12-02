@@ -1,9 +1,3 @@
-//
-//  ListPropertiesState.swift
-//  Ruminders
-//
-//  Created by Евгений Сердюков on 22.10.2021.
-//
 
 import SwiftUI
 import CoreData

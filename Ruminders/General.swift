@@ -1,21 +1,9 @@
-//
-//  GeneralFunctions.swift
-//  Ruminders
-//
-//  Created by Евгений Сердюков on 24.10.2021.
-//
 
 import Foundation
 import SwiftUI
 import CoreData
 
-
 func getUIDataFromColor(color: Color) -> Data {
-    //    do {
-    //        try obj.color = NSKeyedArchiver.archivedData(withRootObject: UIColor.blue, requiringSecureCoding: false)
-    //    } catch {
-    //        print(error)
-    //    }
 
     do {
         return try NSKeyedArchiver.archivedData(withRootObject: UIColor(color), requiringSecureCoding: false)
@@ -25,11 +13,16 @@ func getUIDataFromColor(color: Color) -> Data {
 }
 
 
-func getColor(data: Data) -> Color {
-    do {
-        return try Color(NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data)!)
-    } catch {
-        print(error)
+func getColor(data: Data?) -> Color {
+
+    if let data = data {
+        do {
+            return try Color(NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data)!)
+        } catch {
+            print(error)
+        }
+    } else {
+        return Color.random
     }
 
     return Color.clear
@@ -46,9 +39,9 @@ extension Color {
 }
 
 extension View {
-    func endEditing(_ force: Bool) {
-        UIApplication.shared.keyWindow?.endEditing(force)
-    }
+//    func endEditing(_ force: Bool) {
+//        UIApplication.shared.keyWindow?.endEditing(force)
+//    }
 }
 
 class UIEmojiTextField: UITextField {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ListSet" representedClassName="ListSet" syncable="YES" codeGenerationType="class">
+    <entity name="ListSet" representedClassName="ListSet" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Transformable" customClassName="Data"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="picture" optional="YES" attributeType="String"/>
@@ -9,7 +9,7 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tasks" inverseName="listSet" inverseEntity="Tasks"/>
     </entity>
-    <entity name="Tasks" representedClassName="Tasks" syncable="YES" codeGenerationType="class">
+    <entity name="Tasks" representedClassName="Tasks" syncable="YES">
         <attribute name="done" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
@@ -17,6 +17,6 @@
     </entity>
     <elements>
         <element name="ListSet" positionX="-663.109375" positionY="-54.71875" width="128" height="134"/>
-        <element name="Tasks" positionX="-1297.20703125" positionY="-26.05078125" width="128" height="103"/>
+        <element name="Tasks" positionX="-1297.20703125" positionY="-26.05078125" width="128" height="89"/>
     </elements>
 </model>
