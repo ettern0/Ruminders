@@ -21,7 +21,7 @@
 		77852D9627233D9500137E88 /* ListPropertiesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77852D9527233D9500137E88 /* ListPropertiesState.swift */; };
 		7796823827282A5400705B18 /* ListContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823727282A5400705B18 /* ListContext.swift */; };
 		7796823A27282A8000705B18 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823927282A8000705B18 /* ListView.swift */; };
-		7796823C27282AAA00705B18 /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823B27282AAA00705B18 /* RowView.swift */; };
+		7796823C27282AAA00705B18 /* RowViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7796823B27282AAA00705B18 /* RowViews.swift */; };
 		77B9DB2627561CA200690FF8 /* pencil.json in Resources */ = {isa = PBXBuildFile; fileRef = 77B9DB2527561CA200690FF8 /* pencil.json */; };
 		77B9DB2827561DD500690FF8 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2727561DD500690FF8 /* Animation.swift */; };
 		77B9DB2A27562B9E00690FF8 /* gridList.json in Resources */ = {isa = PBXBuildFile; fileRef = 77B9DB2927562B9E00690FF8 /* gridList.json */; };
@@ -74,7 +74,7 @@
 		77852D9527233D9500137E88 /* ListPropertiesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPropertiesState.swift; sourceTree = "<group>"; };
 		7796823727282A5400705B18 /* ListContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContext.swift; sourceTree = "<group>"; };
 		7796823927282A8000705B18 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		7796823B27282AAA00705B18 /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
+		7796823B27282AAA00705B18 /* RowViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowViews.swift; sourceTree = "<group>"; };
 		77B9DB2527561CA200690FF8 /* pencil.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pencil.json; sourceTree = "<group>"; };
 		77B9DB2727561DD500690FF8 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		77B9DB2927562B9E00690FF8 /* gridList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gridList.json; sourceTree = "<group>"; };
@@ -237,8 +237,8 @@
 			children = (
 				7796823927282A8000705B18 /* ListView.swift */,
 				7796823727282A5400705B18 /* ListContext.swift */,
-				7796823B27282AAA00705B18 /* RowView.swift */,
 				77FAEBA4272DC8CC00382DBC /* TasksView.swift */,
+				7796823B27282AAA00705B18 /* RowViews.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -513,7 +513,7 @@
 				7796823827282A5400705B18 /* ListContext.swift in Sources */,
 				772FEAD227215939006C1FE8 /* Ruminders.xcdatamodeld in Sources */,
 				77D792232758F5F7007EFE61 /* Tasks+CoreDataProperties.swift in Sources */,
-				7796823C27282AAA00705B18 /* RowView.swift in Sources */,
+				7796823C27282AAA00705B18 /* RowViews.swift in Sources */,
 				7766C2AA2725B89400406714 /* General.swift in Sources */,
 				77D792252758F5F7007EFE61 /* ListSet+CoreDataProperties.swift in Sources */,
 				77B9DB2827561DD500690FF8 /* Animation.swift in Sources */,

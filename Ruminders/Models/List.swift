@@ -61,7 +61,7 @@ public struct ListsModel {
     }
 }
 
-struct RowElement:Identifiable {
+struct ListElement:Identifiable {
 
     var id: Int32
     let list: ListSet

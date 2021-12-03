@@ -17,6 +17,15 @@ extension ListSet {
     @NSManaged public var timestamp: Date?
     @NSManaged public var tasks: NSSet?
 
+    public var tasksArray: [Tasks] {
+        let result = tasks as? Set<Tasks> ?? []
+        return result.sorted { $0.wrappedPosition < $1.wrappedPosition }
+    }
+
+    public var tasksCount: Int {
+        tasksArray.count
+    }
+
 }
 
 // MARK: Generated accessors for tasks

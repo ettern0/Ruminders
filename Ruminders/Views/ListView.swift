@@ -3,7 +3,7 @@ import SwiftUI
 
 public struct ListView: View {
 
-    @ObservedObject var listsViewModel: ListsViewModel = ListsViewModel.instance
+    @ObservedObject var lvm: ListsViewModel = ListsViewModel.instance
     @State var selectedList: ListSet?
     @State var showView = false
     @State var showRow: ListPropertiesState?
@@ -18,16 +18,17 @@ public struct ListView: View {
                 navigation
                 List {
                     Section(header: ListHeader()) {
-                        ForEach(listsViewModel.lists) { element in
+                        ForEach(lvm.lists) { element in
                             ListRowView(list: element, mode: mode, show: $showRow)
-                                .onLongPressGesture {
-                                    self.selectedList = element
-                                }
                                 .background(Color(.white))
                                 .contextMenu {
                                     ButtonListProperty(showRow: $showRow, list: element)
                                     ButtonListShare(list: element)
                                     ButtonListDelete(list: element)
+                                }
+                                .onTapGesture {
+                                    self.activeView = AnyView(TasksView(list: element))
+                                    self.showView.toggle()
                                 }
                         }
                         .onDelete(perform: deleteLists)
@@ -77,29 +78,26 @@ public struct ListView: View {
     }
 
     func deleteLists(offsets: IndexSet) {
-        let array = offsets.map { listsViewModel.lists[$0] }
+        let array = offsets.map { lvm.lists[$0] }
         array.forEach { element in
-            listsViewModel.delete(list: element)
+            lvm.delete(list: element)
         }
     }
 
     func moveList(from: IndexSet, to: Int) {
-        let array = from.map { listsViewModel.lists[$0] }
+        let array = from.map { lvm.lists[$0] }
         array.forEach { element in
-            listsViewModel.save(list: element, position: to)
+            lvm.save(list: element, position: to)
         }
     }
 }
 
 
-struct ListHeader: View {
+private struct ListHeader: View {
     var body: some View {
         HStack {
-//            LottieView(name: "pencil")
-//                           .frame(width: 60, height: 60, alignment: .leading)
             Text("My lists")
                 .font(.largeTitle)
-
         }
     }
 }
