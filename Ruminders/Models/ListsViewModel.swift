@@ -14,7 +14,7 @@ public class ListsViewModel: ObservableObject {
         }
     }
 
-    func save(list: ListSet? = nil,
+    func saveList(list: ListSet? = nil,
               name: String? = nil,
               picture: String? = nil,
               hasSysName: Bool? = nil,
@@ -49,7 +49,7 @@ public class ListsViewModel: ObservableObject {
             _position = Int(position)
         }
 
-        model.save(list: list,
+        model.saveList(list: list,
                    name: _name,
                    picture: _picture,
                    hasSysName: true,
@@ -57,7 +57,7 @@ public class ListsViewModel: ObservableObject {
                    position: _position)
     }
 
-    func delete(list: ListSet) {
+    func deleteList(list: ListSet) {
         model.delete(list: list)
     }
 }

@@ -206,7 +206,7 @@ struct ListContext: View {
 
     var doneButton: some View {
         Button {
-            listViewModel.save(list: list,
+            listViewModel.saveList(list: list,
                                name: name,
                                picture: picture,
                                hasSysName: thePictureHasSystemName,

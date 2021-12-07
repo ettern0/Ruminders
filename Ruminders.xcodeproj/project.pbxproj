@@ -26,13 +26,14 @@
 		77B9DB2827561DD500690FF8 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2727561DD500690FF8 /* Animation.swift */; };
 		77B9DB2A27562B9E00690FF8 /* gridList.json in Resources */ = {isa = PBXBuildFile; fileRef = 77B9DB2927562B9E00690FF8 /* gridList.json */; };
 		77B9DB2C27562FE000690FF8 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2B27562FE000690FF8 /* List.swift */; };
-		77B9DB2E275631ED00690FF8 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2D275631ED00690FF8 /* ViewModel.swift */; };
+		77B9DB2E275631ED00690FF8 /* ListsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB2D275631ED00690FF8 /* ListsViewModel.swift */; };
 		77B9DB312757BD9400690FF8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB302757BD9400690FF8 /* Task.swift */; };
 		77B9DB342757C63A00690FF8 /* SpeechRec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DB332757C63A00690FF8 /* SpeechRec.swift */; };
 		77D792222758F5F7007EFE61 /* Tasks+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7921E2758F5F7007EFE61 /* Tasks+CoreDataClass.swift */; };
 		77D792232758F5F7007EFE61 /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7921F2758F5F7007EFE61 /* Tasks+CoreDataProperties.swift */; };
 		77D792242758F5F7007EFE61 /* ListSet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D792202758F5F7007EFE61 /* ListSet+CoreDataClass.swift */; };
 		77D792252758F5F7007EFE61 /* ListSet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D792212758F5F7007EFE61 /* ListSet+CoreDataProperties.swift */; };
+		77D7922B275F6D0D007EFE61 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7922A275F6D0D007EFE61 /* TaskViewModel.swift */; };
 		77FAEBA5272DC8CC00382DBC /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FAEBA4272DC8CC00382DBC /* TasksView.swift */; };
 		93BB503B697F1721D22F9960 /* Pods_Ruminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED04F7026486398C94E139A /* Pods_Ruminders.framework */; };
 /* End PBXBuildFile section */
@@ -79,13 +80,14 @@
 		77B9DB2727561DD500690FF8 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		77B9DB2927562B9E00690FF8 /* gridList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gridList.json; sourceTree = "<group>"; };
 		77B9DB2B27562FE000690FF8 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
-		77B9DB2D275631ED00690FF8 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		77B9DB2D275631ED00690FF8 /* ListsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModel.swift; sourceTree = "<group>"; };
 		77B9DB302757BD9400690FF8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		77B9DB332757C63A00690FF8 /* SpeechRec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRec.swift; sourceTree = "<group>"; };
 		77D7921E2758F5F7007EFE61 /* Tasks+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataClass.swift"; sourceTree = "<group>"; };
 		77D7921F2758F5F7007EFE61 /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		77D792202758F5F7007EFE61 /* ListSet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListSet+CoreDataClass.swift"; sourceTree = "<group>"; };
 		77D792212758F5F7007EFE61 /* ListSet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListSet+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		77D7922A275F6D0D007EFE61 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		77FAEBA4272DC8CC00382DBC /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		A64B44F2CEA707857C69F370 /* Pods-RumindersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RumindersTests.debug.xcconfig"; path = "Target Support Files/Pods-RumindersTests/Pods-RumindersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A6E988ABBEA188479425394F /* Pods_Ruminders_RumindersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ruminders_RumindersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,7 +205,8 @@
 		77B9DB2F2757BD7B00690FF8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				77B9DB2D275631ED00690FF8 /* ViewModel.swift */,
+				77B9DB2D275631ED00690FF8 /* ListsViewModel.swift */,
+				77D7922A275F6D0D007EFE61 /* TaskViewModel.swift */,
 				77B9DB2B27562FE000690FF8 /* List.swift */,
 				77B9DB302757BD9400690FF8 /* Task.swift */,
 				77852D9527233D9500137E88 /* ListPropertiesState.swift */,
@@ -509,9 +512,10 @@
 				77D792222758F5F7007EFE61 /* Tasks+CoreDataClass.swift in Sources */,
 				772FEAC627215937006C1FE8 /* RumindersApp.swift in Sources */,
 				77B9DB342757C63A00690FF8 /* SpeechRec.swift in Sources */,
-				77B9DB2E275631ED00690FF8 /* ViewModel.swift in Sources */,
+				77B9DB2E275631ED00690FF8 /* ListsViewModel.swift in Sources */,
 				7796823827282A5400705B18 /* ListContext.swift in Sources */,
 				772FEAD227215939006C1FE8 /* Ruminders.xcdatamodeld in Sources */,
+				77D7922B275F6D0D007EFE61 /* TaskViewModel.swift in Sources */,
 				77D792232758F5F7007EFE61 /* Tasks+CoreDataProperties.swift in Sources */,
 				7796823C27282AAA00705B18 /* RowViews.swift in Sources */,
 				7766C2AA2725B89400406714 /* General.swift in Sources */,

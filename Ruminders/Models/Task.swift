@@ -5,14 +5,33 @@ public struct TaskModel {
 
     private let moc: NSManagedObjectContext
     private (set) var tasks: [Tasks]?
+    private let list: ListSet
 
     init (list: ListSet) {
         moc = PersistenceController.shared.container.viewContext
+        self.list = list
         tasks = list.tasksArray
+    }
+
+    mutating func save(task: TaskStruct) {
+
+        let item = task.task ?? Tasks(context: moc)
+        item.timestamp = Date()
+        item.name = task.name
+        item.position = NSNumber(nonretainedObject: task.position)
+        item.done = task.done
+        do {
+            try moc.save()
+            tasks = list.tasksArray
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
     }
 }
 
 struct TaskStruct: Identifiable, Equatable {
+
     var id: NSNumber
     let task: Tasks? = nil
     var name: String = ""

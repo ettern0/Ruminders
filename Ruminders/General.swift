@@ -139,3 +139,8 @@ class EmojiTextField: UITextField {
     }
 }
 
+extension Int {
+    func cgFloat() -> CGFloat {
+        CGFloat(self)
+    }
+}

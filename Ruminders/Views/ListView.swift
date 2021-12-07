@@ -14,10 +14,9 @@ public struct ListView: View {
     public  var body: some View {
         NavigationView {
             VStack {
-                //speachButtonView()
                 navigation
                 List {
-                    Section(header: ListHeader()) {
+                    Section(header: listHeader) {
                         ForEach(lvm.lists) { element in
                             ListRowView(list: element, mode: mode, show: $showRow)
                                 .background(Color(.white))
@@ -77,30 +76,29 @@ public struct ListView: View {
         }
     }
 
+    var listHeader: some View {
+        return
+        HStack {
+            Text("My lists")
+                .font(.largeTitle)
+        }
+    }
+
     func deleteLists(offsets: IndexSet) {
         let array = offsets.map { lvm.lists[$0] }
         array.forEach { element in
-            lvm.delete(list: element)
+            lvm.deleteList(list: element)
         }
     }
 
     func moveList(from: IndexSet, to: Int) {
         let array = from.map { lvm.lists[$0] }
         array.forEach { element in
-            lvm.save(list: element, position: to)
+            lvm.saveList(list: element, position: to)
         }
     }
 }
 
-
-private struct ListHeader: View {
-    var body: some View {
-        HStack {
-            Text("My lists")
-                .font(.largeTitle)
-        }
-    }
-}
 
 //style of picture buttons
 private struct ToolbarButtonStyle: LabelStyle {
@@ -132,7 +130,7 @@ struct ButtonListDelete: View {
     var list:ListSet
     var body: some View {
         Button(role: .destructive) {
-            ListsViewModel.instance.delete(list: list)
+            ListsViewModel.instance.deleteList(list: list)
         } label: {
             HStack {
                 Text("Delete list")

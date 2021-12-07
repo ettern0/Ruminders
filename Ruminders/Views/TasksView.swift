@@ -3,68 +3,76 @@ import simd
 
 struct TasksView: View {
 
-    @ObservedObject var lvm: ListsViewModel = ListsViewModel.instance
+    @ObservedObject var tvm: TasksViewModel
     let list: ListSet
-
     @State var arrayOfTasks: [TaskStruct] = []
 
     init(list: ListSet) {
         self.list = list
-        list.tasksArray.forEach { task in
-            arrayOfTasks.append(TaskStruct(task: task))
-        }
+        tvm = TasksViewModel(list: list)
     }
-
 
     var body: some View {
         NavigationView {
-
-            //list
-            List {
-                Section(header: listHeader) {
-                    ForEach(arrayOfTasks) { element in
-                        TaskRowView(arrayOfTasks: $arrayOfTasks,done: element.done, task: element)
+            VStack {
+                List {
+                    Section(header: listHeader) {
+                        ForEach(tvm.tasks) { element in
+                            TaskRowView(model: tvm, task: element)
+                        }
                     }
+                    //.ignoresSafeArea()
                 }
-                .onTapGesture {
-                    arrayOfTasks.append(TaskStruct(position: NSNumber(value: arrayOfTasks.count)))
-                }
+                Button(action: {
+                    tvm.appendTaskOnPosition(position: NSNumber(value: tvm.tasks.count))
+                }) { Label("add task", systemImage: "") }
             }
         }
-        //-list
     }
 
     var listHeader: some View {
         HStack {
             Text(list.name ?? "")
-                .font(.largeTitle)
+                .font(Font.largeTitle.weight(.bold))
+                .foregroundColor(getColor(data: list.color))
         }
     }
 }
 
-
 struct TaskRowView: View {
 
-    @Binding var arrayOfTasks: [TaskStruct]
-    @State var done: Bool
+    let tvm: TasksViewModel
+    @State var done: Bool = false
+    @State var name: String = ""
     var task: TaskStruct
 
-    let size: CGFloat = 20
+    init(model: TasksViewModel, task: TaskStruct) {
+        self.tvm = model
+        self.task = task
+        if let index = tvm.tasks.firstIndex(of: task) {
+            self.done = tvm.tasks[index].done
+            self.name = tvm.tasks[index].name
+        }
+    }
 
     var body: some View {
         HStack {
-        conditionButton
-            Text(done ? "done" : "undone")
+            conditionButton
+            TextField("", text: $name) { isEditing in
+                if !isEditing {
+                    if let index = tvm.tasks.firstIndex(of: task) {
+                        tvm.tasks[index].name = name
+                    }
+                }
+            }
         }
-
     }
-
 
     var conditionButton: some View {
         Button {
-            if let index = arrayOfTasks.firstIndex(of: task) {
-                arrayOfTasks[index].toggleCondition()
-                done = arrayOfTasks[index].done
+            if let index = tvm.tasks.firstIndex(of: task) {
+                tvm.tasks[index].toggleCondition()
+                done = tvm.tasks[index].done
             }
         } label: {
             HStack(alignment: .center, spacing: 10) {
@@ -72,10 +80,8 @@ struct TaskRowView: View {
                     .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: self.size, height: self.size)
+                    .frame(width: 20, height: 20)
             }
         }
-
-
-}
+    }
 }

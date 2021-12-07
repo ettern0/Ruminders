@@ -27,7 +27,7 @@ public struct ListsModel {
 
     }
 
-    mutating func save(list: ListSet?,
+    mutating func saveList(list: ListSet?,
                       name: String,
                       picture: String,
                       hasSysName: Bool,
