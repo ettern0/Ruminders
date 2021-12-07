@@ -21,10 +21,10 @@ struct TasksView: View {
                             TaskRowView(model: tvm, task: element)
                         }
                     }
-                    //.ignoresSafeArea()
+                    .ignoresSafeArea()
                 }
                 Button(action: {
-                    tvm.appendTaskOnPosition(position: NSNumber(value: tvm.tasks.count))
+                    tvm.appendTaskOnPosition(position: Int32(tvm.tasks.count))
                 }) { Label("add task", systemImage: "") }
             }
         }
@@ -50,33 +50,38 @@ struct TaskRowView: View {
         self.tvm = model
         self.task = task
         if let index = tvm.tasks.firstIndex(of: task) {
-            self.done = tvm.tasks[index].done
-            self.name = tvm.tasks[index].name
+            _done = .init(initialValue: tvm.tasks[index].done)
+            _name = .init(initialValue: tvm.tasks[index].name)
         }
     }
 
     var body: some View {
         HStack {
             conditionButton
-            TextField("", text: $name) { isEditing in
+            TextField(name, text: $name) { isEditing in
                 if !isEditing {
                     if let index = tvm.tasks.firstIndex(of: task) {
                         tvm.tasks[index].name = name
+                        tvm.saveTask(task:  tvm.tasks[index])
                     }
                 }
             }
+        }
+        .onAppear {
+
         }
     }
 
     var conditionButton: some View {
         Button {
             if let index = tvm.tasks.firstIndex(of: task) {
+                done.toggle()
                 tvm.tasks[index].toggleCondition()
-                done = tvm.tasks[index].done
+                tvm.saveTask(task:  tvm.tasks[index])
             }
         } label: {
             HStack(alignment: .center, spacing: 10) {
-                Image(systemName: task.done ? "largecircle.fill.circle" : "circle")
+                Image(systemName: done ? "largecircle.fill.circle" : "circle")
                     .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)

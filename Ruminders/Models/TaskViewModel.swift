@@ -10,14 +10,15 @@ public class TasksViewModel: ObservableObject {
     init(list: ListSet) {
         model = TaskModel(list: list)
         self.list = list
-        list.tasksArray.forEach { task in
-            tasks.append(TaskStruct(task: task))
-        }
-
+        tasks = model.tasks
     }
 
-    func appendTaskOnPosition(position: NSNumber = 0) {
+    func appendTaskOnPosition(position: Int32 = 0) {
         tasks.append(TaskStruct(position: position))
+    }
+
+    func saveTask(task: TaskStruct) {
+        model.save(task: task)
     }
 //
 //    func saveTask() {
