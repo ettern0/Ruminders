@@ -1,10 +1,4 @@
 //
-//  SpeechRec.swift
-//  SpeechToTextDemo
-//
-//  Created by Altynbek Usenbekov on 1/8/20.
-//  Copyright © 2020 Altynbek Usenbekov. All rights reserved.
-//
 
 import Foundation
 import Speech
@@ -47,9 +41,7 @@ class SpeechRec: ObservableObject {
             
             self.recognizedText = "Слушаю..."
             self.isRunning = true
-        }
-        
-        catch {
+        } catch {
             
         }
     }

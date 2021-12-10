@@ -9,15 +9,20 @@ public struct ListView: View {
     @State var showRow: ListPropertiesState?
     @State var activeView: AnyView?
     @State var mode: EditMode = .inactive
+    @State var searchText = ""
+    @State var showCancelButton: Bool = false
     let headerHeight = CGFloat(24)
 
     public  var body: some View {
         NavigationView {
             VStack {
                 navigation
+                SearchView(searchText: $searchText, showCancelButton: $showCancelButton)
                 List {
                     Section(header: listHeader) {
-                        ForEach(lvm.lists) { element in
+                        ForEach(lvm.lists.filter {
+                            $0.name!.hasPrefix(searchText) || searchText == ""
+                        }) { element in
                             ListRowView(list: element, mode: mode, show: $showRow)
                                 .background(Color(.white))
                                 .contextMenu {
@@ -34,6 +39,7 @@ public struct ListView: View {
                         .onMove { self.moveList(from: $0, to: $1) }
                     }
                 }
+                .resignKeyboardOnDragGesture()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
@@ -77,7 +83,6 @@ public struct ListView: View {
     }
 
     var listHeader: some View {
-        return
         HStack {
             Text("My lists")
                 .font(.largeTitle)

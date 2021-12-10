@@ -5,23 +5,33 @@ public class TasksViewModel: ObservableObject {
 
     @Published private (set) var model: TaskModel
     private let list: ListSet
-    @Published var tasks: [TaskStruct] = []
 
     init(list: ListSet) {
         model = TaskModel(list: list)
         self.list = list
-        tasks = model.tasks
+    }
+
+    var tasks:[TaskStruct] {
+        model.tasks
     }
 
     func appendTaskOnPosition(position: Int32 = 0) {
-        tasks.append(TaskStruct(position: position))
+        model.appendTaskOnPosition(position: position)
+    }
+
+    func setName(task: TaskStruct, name: String) {
+        model.setName(task: task, name: name)
+    }
+
+    func setCondition(task: TaskStruct, condition: Bool) {
+        model.setCondition(task: task, condition: condition)
     }
 
     func saveTask(task: TaskStruct) {
         model.save(task: task)
     }
-//
-//    func saveTask() {
-//        model.save()
-//    }
+
+    func deleteTask(task: TaskStruct) {
+        model.delete(task: task)
+    }
 }

@@ -17,7 +17,7 @@ extension Tasks {
 
     public var wrappedPosition:Int32 {
         let intPosition = position ?? 0
-        return Int32(intPosition)
+        return Int32(truncating: intPosition)
     }
 }
 
