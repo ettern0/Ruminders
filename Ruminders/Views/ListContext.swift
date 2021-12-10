@@ -216,6 +216,7 @@ struct ListContext: View {
         } label: {
             Text("Done")
         }
+        .disabled(name.isEmpty)
     }
 }
 

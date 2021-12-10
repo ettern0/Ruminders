@@ -13,43 +13,53 @@ public struct ListView: View {
     @State var showCancelButton: Bool = false
     let headerHeight = CGFloat(24)
 
-    public  var body: some View {
+    public var body: some View {
         NavigationView {
-            VStack {
-                navigation
-                SearchView(searchText: $searchText, showCancelButton: $showCancelButton)
-                List {
-                    Section(header: listHeader) {
-                        ForEach(lvm.lists.filter {
-                            $0.name!.hasPrefix(searchText) || searchText == ""
-                        }) { element in
-                            ListRowView(list: element, mode: mode, show: $showRow)
-                                .background(Color(.white))
-                                .contextMenu {
-                                    ButtonListProperty(showRow: $showRow, list: element)
-                                    ButtonListShare(list: element)
-                                    ButtonListDelete(list: element)
-                                }
-                                .onTapGesture {
-                                    self.activeView = AnyView(TasksView(list: element))
-                                    self.showView.toggle()
-                                }
-                        }
-                        .onDelete(perform: deleteLists)
-                        .onMove { self.moveList(from: $0, to: $1) }
-                    }
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color(.secondarySystemBackground))
+                    .ignoresSafeArea()
+                VStack {
+                    SearchView(searchText: $searchText, showCancelButton: $showCancelButton)
+                    mainElementsView
+                    Spacer()
                 }
-                .resignKeyboardOnDragGesture()
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        toolbarCustomButtom
-                    }
-                }
-                .environment(\.editMode, $mode)
             }
+        }
+    }
+
+    var mainElementsView: some View {
+        VStack {
+            navigation
+            List {
+                Section(header: listHeader) {
+                    ForEach(lvm.lists.filter { $0.name!.hasPrefix(searchText) || searchText == "" }) { element in
+                        ListRowView(list: element, mode: mode, show: $showRow)
+                            .background(Color(.white))
+                            .contextMenu {
+                                ButtonListProperty(showRow: $showRow, list: element)
+                                ButtonListShare(list: element)
+                                ButtonListDelete(list: element)
+                            }
+                            .onTapGesture {
+                                self.activeView = AnyView(TasksView(list: element))
+                                self.showView.toggle()
+                            }
+                    }
+                    .onDelete(perform: deleteLists)
+                    .onMove { self.moveList(from: $0, to: $1) }
+                }
+            }
+            .resignKeyboardOnDragGesture(empty: mode == .inactive)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    toolbarCustomButtom
+                }
+            }
+            .environment(\.editMode, $mode)
         }
     }
 
@@ -85,7 +95,7 @@ public struct ListView: View {
     var listHeader: some View {
         HStack {
             Text("My lists")
-                .font(.largeTitle)
+                .font(Font.largeTitle.weight(.bold))
         }
     }
 

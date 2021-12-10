@@ -4,6 +4,7 @@ import SwiftUI
 public class TasksViewModel: ObservableObject {
 
     @Published private (set) var model: TaskModel
+    let lvm: ListsViewModel = ListsViewModel.instance
     private let list: ListSet
 
     init(list: ListSet) {
@@ -21,17 +22,21 @@ public class TasksViewModel: ObservableObject {
 
     func setName(task: TaskStruct, name: String) {
         model.setName(task: task, name: name)
+        lvm.refreshModelState()
     }
 
     func setCondition(task: TaskStruct, condition: Bool) {
         model.setCondition(task: task, condition: condition)
+        lvm.refreshModelState()
     }
 
     func saveTask(task: TaskStruct) {
         model.save(task: task)
+        lvm.refreshModelState()
     }
 
     func deleteTask(task: TaskStruct) {
         model.delete(task: task)
+        lvm.refreshModelState()
     }
 }

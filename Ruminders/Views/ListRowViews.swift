@@ -3,8 +3,7 @@ import SwiftUI
 
 struct ListRowView: View {
 
-    @ObservedObject var lvm: ListsViewModel = ListsViewModel.instance
-    var list: Ruminders.ListSet
+    @ObservedObject var list: Ruminders.ListSet
     var mode: EditMode
     @Binding var show: ListPropertiesState?
 
@@ -43,7 +42,7 @@ struct ListRowView: View {
             Spacer()
             HStack {
                 if mode == .inactive {
-                    Text("0")
+                    Text(String(list.tasksArray.count))
                     Image(systemName: "chevron.right")
 
                 } else {

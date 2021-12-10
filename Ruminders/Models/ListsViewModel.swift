@@ -5,6 +5,7 @@ public class ListsViewModel: ObservableObject {
 
     static public let instance = ListsViewModel()
     @Published private (set) var model = ListsModel()
+    @Published private (set) var modelState: Bool = false
 
     var lists: [ListSet] {
         if let lists = model.lists {
@@ -12,6 +13,10 @@ public class ListsViewModel: ObservableObject {
         } else {
             return []
         }
+    }
+
+    func refreshModelState() {
+        self.modelState.toggle()
     }
 
     func saveList(list: ListSet? = nil,

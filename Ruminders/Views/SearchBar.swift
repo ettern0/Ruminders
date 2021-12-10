@@ -10,7 +10,6 @@ struct SearchView: View {
         HStack {
             HStack {
                 Image(systemName: "magnifyingglass")
-
                 TextField("search", text: $searchText, onEditingChanged: { isEditing in
                     self.showCancelButton = true
                 }, onCommit: {
@@ -25,7 +24,7 @@ struct SearchView: View {
             }
             .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
             .foregroundColor(.secondary)
-            .background(Color(.secondarySystemBackground))
+            .background(Color(UIColor(red: 0.894, green: 0.89, blue: 0.918, alpha: 1)))
             .cornerRadius(10.0)
 
             if showCancelButton  {
@@ -38,30 +37,36 @@ struct SearchView: View {
             }
         }
         .padding(.horizontal)
-        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+        .padding(.bottom)
+        .navigationBarHidden(showCancelButton)
     }
 }
 
-    extension UIApplication {
-        func endEditing(_ force: Bool) {
-            self.windows
-                .filter{$0.isKeyWindow}
-                .first?
-                .endEditing(force)
-        }
+extension UIApplication {
+    func endEditing(_ force: Bool) {
+        self.windows
+            .filter{$0.isKeyWindow}
+            .first?
+            .endEditing(force)
     }
+}
 
-    struct ResignKeyboardOnDragGesture: ViewModifier {
-        var gesture = DragGesture().onChanged{_ in
-            UIApplication.shared.endEditing(true)
-        }
-        func body(content: Content) -> some View {
+struct ResignKeyboardOnDragGesture: ViewModifier {
+    var empty: Bool
+    var gesture = DragGesture().onChanged{_ in
+        UIApplication.shared.endEditing(true)
+    }
+    func body(content: Content) -> some View {
+        if !empty {
             content.gesture(gesture)
+        } else {
+            content
         }
     }
+}
 
-    extension View {
-        func resignKeyboardOnDragGesture() -> some View {
-            return modifier(ResignKeyboardOnDragGesture())
-        }
+extension View {
+    func resignKeyboardOnDragGesture(empty: Bool) -> some View {
+        modifier(ResignKeyboardOnDragGesture(empty: empty))
     }
+}
