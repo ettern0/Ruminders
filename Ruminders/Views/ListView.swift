@@ -4,7 +4,6 @@ import SwiftUI
 public struct ListView: View {
 
     @ObservedObject var lvm: ListsViewModel = ListsViewModel.instance
-    var cvm: CategoryViewModel = CategoryViewModel.instance
     @State var selectedList: ListSet?
     @State var showView = false
     @State var showRow: ListPropertiesState?
@@ -22,19 +21,8 @@ public struct ListView: View {
                     .ignoresSafeArea()
                 VStack {
                     SearchView(searchText: $searchText, showCancelButton: $showCancelButton)
-                    categoriesView
+                    CategoriesView(mode: $mode)
                     mainElementsView
-                }
-            }
-        }
-    }
-
-    var categoriesView: some View {
-        List {
-            ForEach(cvm.categoriesWithTasks, id: \.category) { element in
-                HStack {
-                    Text(element.category.rawValue)
-                    Text(String(element.tasks.count))
                 }
             }
         }

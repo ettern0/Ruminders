@@ -12,7 +12,7 @@ extension Tasks {
     @NSManaged public var done: Bool
     @NSManaged public var flag: Bool
     @NSManaged public var name: String?
-    @NSManaged public var timestamp: Date?
+    @NSManaged public var scheduledDate: Date?
     @NSManaged public var position: NSNumber?
     @NSManaged public var listSet: ListSet?
 

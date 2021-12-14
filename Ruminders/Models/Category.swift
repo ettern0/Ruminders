@@ -28,10 +28,10 @@ public struct CategoryModel {
         let fetchResult = try? moc.fetch(request)
         if let result = fetchResult {
             result.forEach { element in
-                if element.timestamp?.startOfDay == Date.now.startOfDay {
+                if element.scheduledDate?.startOfDay == Date.now.startOfDay {
                     todayTasks.append(element)
                 }
-                if element.timestamp != nil {
+                if element.scheduledDate != nil {
                     schelduedTasks.append(element)
                 }
                 if element.flag {
@@ -57,4 +57,20 @@ enum Category: String {
     case all = "All"
     case flagged = "Flagged"
     case assigned = "Assigned to me"
+
+}
+
+func getSignAndColor (_ category: Category) ->(sign: String, color: Color) {
+    switch category {
+    case .today:
+        return ("calendar", .blue)
+    case .scheldued:
+        return ("calendar", .red)
+    case .all:
+        return ("tray.fill", .gray)
+    case .flagged:
+        return ("flag.fill", .yellow)
+    case .assigned:
+        return ("person.fill", .green)
+    }
 }

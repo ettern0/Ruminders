@@ -39,18 +39,18 @@ public struct TaskModel {
     }
 
     mutating func save(task: TaskStruct) {
-            let item = task.task ?? Tasks(context: moc)
-            item.timestamp = Date()
-            item.name = task.name
-            item.position = NSNumber(value: task.position)
-            item.done = task.done
-            item.listSet = self.list
-            do {
-                try moc.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        let item = task.task ?? Tasks(context: moc)
+        item.scheduledDate = task.scheduledDate
+        item.name = task.name
+        item.position = NSNumber(value: task.position)
+        item.done = task.done
+        item.listSet = self.list
+        do {
+            try moc.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
     }
 
     mutating func delete(task: TaskStruct) {
@@ -70,14 +70,14 @@ struct TaskStruct: Identifiable, Equatable {
     let task: Tasks?
     var name: String = ""
     var position: Int32 = 0
-    var timeStamp: Date = Date()
+    var scheduledDate: Date? = nil
     var done: Bool = false
     var mutated: Bool = false
 
     init(task: Tasks? = nil, position: Int32 = 0) {
         self.task = task
         self.name = task?.name ?? ""
-        self.timeStamp = task?.timestamp ?? Date()
+        self.scheduledDate = task?.scheduledDate
         self.done = task?.done ?? false
         if let taskPosition = task?.position {
             self.position = Int32(truncating: taskPosition)
