@@ -36,6 +36,8 @@
 		77D7922B275F6D0D007EFE61 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7922A275F6D0D007EFE61 /* TaskViewModel.swift */; };
 		77D7922D275F8562007EFE61 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7922C275F8562007EFE61 /* TaskRowView.swift */; };
 		77D7922F27635D1E007EFE61 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7922E27635D1E007EFE61 /* SearchBar.swift */; };
+		77D7925027689866007EFE61 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7924F27689866007EFE61 /* Category.swift */; };
+		77D7925227689883007EFE61 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D7925127689883007EFE61 /* CategoryViewModel.swift */; };
 		77FAEBA5272DC8CC00382DBC /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FAEBA4272DC8CC00382DBC /* TasksView.swift */; };
 		93BB503B697F1721D22F9960 /* Pods_Ruminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED04F7026486398C94E139A /* Pods_Ruminders.framework */; };
 /* End PBXBuildFile section */
@@ -92,6 +94,8 @@
 		77D7922A275F6D0D007EFE61 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		77D7922C275F8562007EFE61 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 		77D7922E27635D1E007EFE61 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		77D7924F27689866007EFE61 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		77D7925127689883007EFE61 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		77FAEBA4272DC8CC00382DBC /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		A64B44F2CEA707857C69F370 /* Pods-RumindersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RumindersTests.debug.xcconfig"; path = "Target Support Files/Pods-RumindersTests/Pods-RumindersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A6E988ABBEA188479425394F /* Pods_Ruminders_RumindersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ruminders_RumindersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,8 +215,10 @@
 			children = (
 				77B9DB2D275631ED00690FF8 /* ListsViewModel.swift */,
 				77D7922A275F6D0D007EFE61 /* TaskViewModel.swift */,
+				77D7925127689883007EFE61 /* CategoryViewModel.swift */,
 				77B9DB2B27562FE000690FF8 /* List.swift */,
 				77B9DB302757BD9400690FF8 /* Task.swift */,
+				77D7924F27689866007EFE61 /* Category.swift */,
 				77852D9527233D9500137E88 /* ListPropertiesState.swift */,
 			);
 			path = Models;
@@ -516,6 +522,7 @@
 				77D792242758F5F7007EFE61 /* ListSet+CoreDataClass.swift in Sources */,
 				77852D9627233D9500137E88 /* ListPropertiesState.swift in Sources */,
 				77D792222758F5F7007EFE61 /* Tasks+CoreDataClass.swift in Sources */,
+				77D7925227689883007EFE61 /* CategoryViewModel.swift in Sources */,
 				772FEAC627215937006C1FE8 /* RumindersApp.swift in Sources */,
 				77B9DB342757C63A00690FF8 /* SpeechRec.swift in Sources */,
 				77B9DB2E275631ED00690FF8 /* ListsViewModel.swift in Sources */,
@@ -531,6 +538,7 @@
 				77B9DB2827561DD500690FF8 /* Animation.swift in Sources */,
 				77B9DB312757BD9400690FF8 /* Task.swift in Sources */,
 				7796823A27282A8000705B18 /* ListView.swift in Sources */,
+				77D7925027689866007EFE61 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

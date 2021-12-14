@@ -4,6 +4,7 @@ import SwiftUI
 public struct ListView: View {
 
     @ObservedObject var lvm: ListsViewModel = ListsViewModel.instance
+    var cvm: CategoryViewModel = CategoryViewModel.instance
     @State var selectedList: ListSet?
     @State var showView = false
     @State var showRow: ListPropertiesState?
@@ -21,8 +22,19 @@ public struct ListView: View {
                     .ignoresSafeArea()
                 VStack {
                     SearchView(searchText: $searchText, showCancelButton: $showCancelButton)
+                    categoriesView
                     mainElementsView
-                    Spacer()
+                }
+            }
+        }
+    }
+
+    var categoriesView: some View {
+        List {
+            ForEach(cvm.categoriesWithTasks, id: \.category) { element in
+                HStack {
+                    Text(element.category.rawValue)
+                    Text(String(element.tasks.count))
                 }
             }
         }
@@ -167,32 +179,6 @@ struct ButtonListShare: View {
                 Spacer()
                 Image(systemName: "person.crop.circle.badge.plus")
             }
-        }
-    }
-}
-
-
-struct speachButtonView: View {
-    @ObservedObject var speechRec = SpeechRec()
-    var body: some View {
-        VStack {
-            Text(speechRec.recognizedText)
-                .font(.largeTitle)
-                .padding()
-            Button(action: {
-                if self.speechRec.isRunning {
-                    self.speechRec.stop()
-                } else {
-                    self.speechRec.start()
-                }
-            }) {
-                Text(self.speechRec.isRunning ? "Stop" : "Start")
-                    .font(.title)
-                    .padding()
-            }
-        }
-        .onAppear {
-            self.speechRec.start()
         }
     }
 }
