@@ -21,7 +21,9 @@ public struct ListView: View {
                     .ignoresSafeArea()
                 VStack {
                     SearchView(searchText: $searchText, showCancelButton: $showCancelButton)
-                    CategoriesView(mode: $mode)
+                    if searchText == "" {
+                        CategoriesView(mode: $mode)
+                    }
                     mainElementsView
                 }
             }

@@ -5,6 +5,7 @@ struct TasksView: View {
 
     @ObservedObject var tvm: TasksViewModel
     let list: ListSet
+    @State var rowIsActive: Bool = false
 
     init(list: ListSet) {
         self.list = list
@@ -12,7 +13,9 @@ struct TasksView: View {
     }
 
     var body: some View {
-        NavigationView {
+        ZStack(alignment: .top) {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
             VStack {
                 List {
                     Section(header: listHeader) {
@@ -20,11 +23,19 @@ struct TasksView: View {
                             TaskRowView(model: tvm, task: element)
                         }
                     }
-                    .ignoresSafeArea()
+                    .onTapGesture {
+                        rowIsActive = true
+                    }
                 }
-                Button(action: {
-                    tvm.appendTaskOnPosition(position: Int32(tvm.tasks.count))
-                }) { Label("add task", systemImage: "") }
+                .onTapGesture {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if rowIsActive {
+                            rowIsActive.toggle()
+                        } else {
+                            tvm.appendTaskOnPosition(position: Int32(tvm.tasks.count))
+                        }
+                    }
+                }
             }
         }
     }

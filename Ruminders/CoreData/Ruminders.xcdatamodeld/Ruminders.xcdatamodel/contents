@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ListSet" representedClassName="ListSet" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Transformable" customClassName="Data"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -12,13 +12,18 @@
     <entity name="Tasks" representedClassName="Tasks" syncable="YES">
         <attribute name="done" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="flag" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="name" attributeType="String"/>
+        <attribute name="notes" attributeType="String" defaultValueString=""/>
         <attribute name="position" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="scheduledDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="scheduledHour" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="scheduledMinute" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="url" attributeType="String" defaultValueString=""/>
         <relationship name="listSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListSet" inverseName="tasks" inverseEntity="ListSet"/>
     </entity>
     <elements>
-        <element name="ListSet" positionX="-663.109375" positionY="-54.71875" width="128" height="134"/>
-        <element name="Tasks" positionX="-1297.20703125" positionY="-26.05078125" width="128" height="119"/>
+        <element name="ListSet" positionX="-601.7734375" positionY="-153.7734375" width="128" height="134"/>
+        <element name="Tasks" positionX="-1053.29296875" positionY="-134.69921875" width="128" height="208"/>
     </elements>
 </model>

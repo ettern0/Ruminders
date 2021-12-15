@@ -6,6 +6,7 @@ struct TaskRowView: View {
     let tvm: TasksViewModel
     @State var done: Bool = false
     @State var name: String = ""
+    @State var showContext: Bool = false
     var task: TaskStruct
 
     init(model: TasksViewModel, task: TaskStruct) {
@@ -27,7 +28,18 @@ struct TaskRowView: View {
                     }
                 }
             }
+            Image(systemName: "info.circle")
+                .foregroundColor(.blue)
+                .padding(.trailing)
+                .onTapGesture {
+                    showContext.toggle()
+                }
         }
+        .sheet(isPresented: $showContext, content: {
+            TaskContext(model: tvm,
+                        task: task,
+                        show: $showContext)
+        })
     }
 
     var conditionButton: some View {

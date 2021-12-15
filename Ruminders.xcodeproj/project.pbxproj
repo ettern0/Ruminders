@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		24848DC509509023E91016CA /* Pods_Ruminders_RumindersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6E988ABBEA188479425394F /* Pods_Ruminders_RumindersUITests.framework */; };
 		35885CD20DD2CC45A84E3346 /* Pods_RumindersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D1C8A7913D36BDCFE6950B /* Pods_RumindersTests.framework */; };
+		770D28F52769EDE100B352F5 /* TaskContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770D28F42769EDE100B352F5 /* TaskContext.swift */; };
 		772FEAC627215937006C1FE8 /* RumindersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772FEAC527215937006C1FE8 /* RumindersApp.swift */; };
 		772FEACA27215939006C1FE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772FEAC927215939006C1FE8 /* Assets.xcassets */; };
 		772FEACD27215939006C1FE8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772FEACC27215939006C1FE8 /* Preview Assets.xcassets */; };
@@ -65,6 +66,7 @@
 		19BE4B3AA095E755D7BC37D6 /* Pods-Ruminders-RumindersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ruminders-RumindersUITests.debug.xcconfig"; path = "Target Support Files/Pods-Ruminders-RumindersUITests/Pods-Ruminders-RumindersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		25D1C8A7913D36BDCFE6950B /* Pods_RumindersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RumindersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DEFB76007179638CAE3BB4F /* Pods-Ruminders-RumindersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ruminders-RumindersUITests.release.xcconfig"; path = "Target Support Files/Pods-Ruminders-RumindersUITests/Pods-Ruminders-RumindersUITests.release.xcconfig"; sourceTree = "<group>"; };
+		770D28F42769EDE100B352F5 /* TaskContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskContext.swift; sourceTree = "<group>"; };
 		772FEAC227215937006C1FE8 /* Ruminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ruminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		772FEAC527215937006C1FE8 /* RumindersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RumindersApp.swift; sourceTree = "<group>"; };
 		772FEAC927215939006C1FE8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -251,12 +253,13 @@
 			isa = PBXGroup;
 			children = (
 				77D7922E27635D1E007EFE61 /* SearchBar.swift */,
-				7796823927282A8000705B18 /* ListView.swift */,
 				77D792532768B4C1007EFE61 /* CategoriesView.swift */,
-				7796823727282A5400705B18 /* ListContext.swift */,
+				7796823927282A8000705B18 /* ListView.swift */,
 				7796823B27282AAA00705B18 /* ListRowViews.swift */,
+				7796823727282A5400705B18 /* ListContext.swift */,
 				77FAEBA4272DC8CC00382DBC /* TasksView.swift */,
 				77D7922C275F8562007EFE61 /* TaskRowView.swift */,
+				770D28F42769EDE100B352F5 /* TaskContext.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				77D792252758F5F7007EFE61 /* ListSet+CoreDataProperties.swift in Sources */,
 				77B9DB2827561DD500690FF8 /* Animation.swift in Sources */,
 				77B9DB312757BD9400690FF8 /* Task.swift in Sources */,
+				770D28F52769EDE100B352F5 /* TaskContext.swift in Sources */,
 				7796823A27282A8000705B18 /* ListView.swift in Sources */,
 				77D7925027689866007EFE61 /* Category.swift in Sources */,
 			);

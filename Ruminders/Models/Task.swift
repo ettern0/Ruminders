@@ -17,7 +17,9 @@ public struct TaskModel {
     }
 
     mutating func appendTaskOnPosition(position: Int32 = 0) {
-        tasks.append(TaskStruct(position: position))
+        if let lastElement = tasks.last, lastElement.name.isEmpty { } else {
+            tasks.append(TaskStruct(position: position))
+        }
     }
 
     mutating func setName(task: TaskStruct, name: String) {
@@ -42,9 +44,20 @@ public struct TaskModel {
         let item = task.task ?? Tasks(context: moc)
         item.scheduledDate = task.scheduledDate
         item.name = task.name
+        item.notes = task.notes
+        item.url = task.url
         item.position = NSNumber(value: task.position)
         item.done = task.done
         item.listSet = self.list
+
+        if let hour = task.scheduledHour {
+            item.scheduledHour = NSNumber(value: hour)
+        }
+
+        if let minute = task.scheduledMinute {
+            item.scheduledMinute = NSNumber(value: minute)
+        }
+
         do {
             try moc.save()
         } catch {
@@ -69,14 +82,20 @@ struct TaskStruct: Identifiable, Equatable {
     var id: Int32
     let task: Tasks?
     var name: String = ""
+    var notes: String = ""
+    var url: String = ""
     var position: Int32 = 0
     var scheduledDate: Date? = nil
+    var scheduledHour: Int32? = nil
+    var scheduledMinute: Int32? = nil
     var done: Bool = false
     var mutated: Bool = false
 
     init(task: Tasks? = nil, position: Int32 = 0) {
         self.task = task
         self.name = task?.name ?? ""
+        self.notes = task?.notes ?? ""
+        self.url = task?.url ?? ""
         self.scheduledDate = task?.scheduledDate
         self.done = task?.done ?? false
         if let taskPosition = task?.position {
@@ -95,3 +114,4 @@ struct TaskStruct: Identifiable, Equatable {
         self.done.toggle()
     }
 }
+

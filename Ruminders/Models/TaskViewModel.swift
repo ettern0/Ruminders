@@ -31,12 +31,16 @@ public class TasksViewModel: ObservableObject {
     }
 
     func saveTask(task: TaskStruct) {
-        model.save(task: task)
-        lvm.refreshModelState()
+        if let index = tasks.firstIndex(of: task) {
+            model.save(task: tasks[index])
+            lvm.refreshModelState()
+        }
     }
 
     func deleteTask(task: TaskStruct) {
-        model.delete(task: task)
-        lvm.refreshModelState()
+        if let index = tasks.firstIndex(of: task) {
+            model.delete(task: tasks[index])
+            lvm.refreshModelState()
+        }
     }
 }
