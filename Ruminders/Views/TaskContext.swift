@@ -4,6 +4,10 @@ import SwiftUI
 struct TaskContext: View {
 
     @ObservedObject var tvm: TasksViewModel
+    @ObservedObject var speechRec = SpeechRec()
+    @State var speachRecNameStart: Bool = false
+    @State var speachRecNotesStart: Bool = false
+    @State var speachRecURLStart: Bool = false
     @State var task: TaskStruct
     @Binding var show: Bool
     @State var name: String = ""
@@ -11,8 +15,10 @@ struct TaskContext: View {
     @State var url: String = ""
     @State var scheduledDate: Date = .now
     @State var setADate: Bool = false
+    @State var showCalendar: Bool = false
     @State var scheduledHour: Int32 = 0
     @State var scheduledMinute: Int32 = 0
+    @State var showTime: Bool = false
     @State var setATime: Bool = false
     @State var flag: Bool = false
 
@@ -68,71 +74,178 @@ struct TaskContext: View {
 
     var mainSection: some View {
         Section {
-            TextField("", text: $name)
-            TextField("Notes", text: $notes)
-            TextField("URL", text: $url)
+            HStack {
+                if speachRecNameStart {
+                    Text(speechRec.recognizedText)
+                } else {
+                    TextField("", text: $name)
+                }
+                Spacer()
+                speachRecNameButton
+            }
+            HStack {
+                if speachRecNotesStart {
+                    Text(speechRec.recognizedText)
+                } else {
+                    TextField("Notes", text: $notes)
+                }
+                Spacer()
+                speachRecNotesButton
+            }
+            HStack {
+                if speachRecURLStart {
+                    Text(speechRec.recognizedText)
+                } else {
+                    TextField("URL", text: $url)
+                }
+                Spacer()
+                speachRecURLButton
+            }
         }
     }
 
     var dateAndTimeSection: some View {
         Section {
-            Toggle(isOn: $setADate) {
+            Toggle(isOn: $setADate, label: {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
                         Image(systemName: "calendar")
                             .foregroundColor(.red)
                         Text("Date")
                     }
+                }.onTapGesture {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if setADate {
+                            showCalendar.toggle()
+                        }
+                    }
                 }
+            }).onChange(of: setADate) { value in
+                showCalendar = value
             }
-            if setADate {
-                withAnimation {
-                    DatePicker(
-                        "Start Date",
-                        selection: $scheduledDate,
-                        displayedComponents: [.date]
-                    )
-                        .datePickerStyle(.graphical)
-                }
+
+            if showCalendar, setADate {
+                datePicker
             }
-            Toggle(isOn: $setATime) {
+
+            Toggle(isOn: $setATime, label: {
                 HStack {
                     Image(systemName: "clock")
                         .foregroundColor(.blue)
                     Text("Time")
                 }
+                .onTapGesture {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if setATime {
+                            showTime.toggle()
+                        }
+                    }
+                }
+            }).onChange(of: setATime) { value in
+                showTime = value
             }
-            if setATime {
-                HStack(alignment: .center, spacing: 0) {
-                    Spacer()
-                    Picker(selection: $scheduledHour, label: Text("")) {
-                        ForEach(0 ..< 24) { index in
-                            Text("\(index) h").tag(index)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .frame(width: UIScreen.main.bounds.width * 0.2, height: 200, alignment: .center)
-                    .compositingGroup()
-                    .clipped()
-                    Picker(selection: $scheduledMinute, label: Text("")) {
-                        ForEach(0 ..< 55) { index in
-                            if index%5 == 0 {
-                                Text("\(index) m").tag(index)
-                            }
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .frame(width: UIScreen.main.bounds.width * 0.2, height: 200, alignment: .center)
-                    .compositingGroup()
-                    .clipped()
-                    Spacer()
+
+            if showTime, setATime {
+                timePicker
+            }
+        }
+    }
+
+    var datePicker: some View {
+            DatePicker(
+                "Start Date",
+                selection: $scheduledDate,
+                displayedComponents: [.date]
+            )
+                .datePickerStyle(.graphical)
+    }
+
+    var timePicker: some View {
+        HStack(alignment: .center, spacing: 0) {
+            Spacer()
+            Picker(selection: $scheduledHour, label: Text("")) {
+                ForEach(0 ..< 24) { index in
+                    Text("\(index) h").tag(index)
                 }
             }
+            .pickerStyle(.wheel)
+            .frame(width: UIScreen.main.bounds.width * 0.2, height: 200, alignment: .center)
+            .compositingGroup()
+            .clipped()
+            Picker(selection: $scheduledMinute, label: Text("")) {
+                ForEach(0 ..< 55) { index in
+                    if index%5 == 0 {
+                        Text("\(index) m").tag(index)
+                    }
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(width: UIScreen.main.bounds.width * 0.2, height: 200, alignment: .center)
+            .compositingGroup()
+            .clipped()
+            Spacer()
         }
     }
 
     var flagSection: some View {
         Toggle("Flag", isOn: $flag)
+    }
+
+    var speachRecNameButton: some View {
+        Button {
+            if speachRecNameStart {
+                speechRec.stop()
+                name = speechRec.recognizedText
+                speachRecNameStart = false
+            } else {
+                speechRec.start()
+                speachRecNameStart = true
+            }
+        } label: {
+            if speachRecNameStart {
+                Image(systemName: "stop")
+            } else {
+                Image(systemName: "mic")
+            }
+        }
+    }
+
+    var speachRecNotesButton: some View {
+        Button {
+            if speachRecNotesStart {
+                speechRec.stop()
+                notes = speechRec.recognizedText
+                speachRecNotesStart = false
+            } else {
+                speechRec.start()
+                speachRecNotesStart = true
+            }
+        } label: {
+            if speachRecNotesStart {
+                Image(systemName: "stop")
+            } else {
+                Image(systemName: "mic")
+            }
+        }
+    }
+
+    var speachRecURLButton: some View {
+        Button {
+            if speachRecURLStart {
+                speechRec.stop()
+                url = speechRec.recognizedText
+                speachRecURLStart = false
+            } else {
+                speechRec.start()
+                speachRecURLStart = true
+            }
+        } label: {
+            if speachRecURLStart {
+                Image(systemName: "stop")
+            } else {
+                Image(systemName: "mic")
+            }
+        }
     }
 
     var backButton: some View {

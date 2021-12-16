@@ -28,6 +28,7 @@ struct TaskRowView: View {
                     }
                 }
             }
+            
             Image(systemName: "info.circle")
                 .foregroundColor(.blue)
                 .padding(.trailing)

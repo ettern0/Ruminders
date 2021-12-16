@@ -13,7 +13,9 @@ struct CategoriesView: View {
             List {
                 ForEach(cvm.categoriesWithTasks, id: \.category) { element in
                     HStack {
+                        getSignOfCategory(category: element.category)
                         Text(element.category.rawValue)
+                        Spacer()
                         Text(String(element.tasks.count))
                     }
                 }
