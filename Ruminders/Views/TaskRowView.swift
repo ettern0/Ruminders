@@ -3,7 +3,7 @@ import SwiftUI
 
 struct TaskRowView: View {
 
-    let tvm: TasksViewModel
+    @ObservedObject var tvm: TasksViewModel
     @State var done: Bool = false
     @State var name: String = ""
     @State var showContext: Bool = false

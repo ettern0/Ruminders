@@ -142,8 +142,7 @@ struct ListContext: View {
     var colorChoiseView: some View {
 
          let columns = [
-            GridItem(.adaptive(minimum: 40))
-         ]
+            GridItem(.adaptive(minimum: 40))]
 
         return RoundedRectangle(cornerRadius: 10)
             .frame(width: sizeOfRROfDescription.width, height: sizeOfRROfDescription.height*0.6)
@@ -167,8 +166,7 @@ struct ListContext: View {
     var signChoiseView: some View {
 
         let columns = [
-            GridItem(.adaptive(minimum: 40))
-        ]
+            GridItem(.adaptive(minimum: 40))]
 
         return RoundedRectangle(cornerRadius: 10)
             .frame(height: UIScreen.main.bounds.height/2)
@@ -226,11 +224,4 @@ func getSizeOfDescription() -> CGSize {
 
 func getsizeOfPictureDescription() -> CGSize {
     CGSize(width: getSizeOfDescription().width*0.2, height: getSizeOfDescription().height*0.2)
-}
-
-func getSignArray() -> Array<String> {
-    ["list.bullet", "pencil", "rectangle.and.pencil.and.ellipsis", "lasso","scissors", "wand.and.rays","paintbrush", "folder","calendar", "bookmark", "paperclip", "command.circle", "delete.left","network", "moon.stars.fill", "cloud.fill", "snowflake", "circle.hexagongrid.fill", "mic", "suit.heart", "star", "bell", "message", "phone"]
-}
-func getColorsArray() -> Array<Color> {
-    [.red, .orange, .yellow, .green, .blue, .brown, .purple, .mint, .pink, .gray, .teal]
 }

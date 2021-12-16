@@ -2,15 +2,19 @@ import CoreData
 import SwiftUI
 
 public struct TaskModel {
-
     private let moc: NSManagedObjectContext
     private let list: ListSet
     private var refreshModel:Bool = false
-    private (set) var tasks: [TaskStruct] = []
+    private(set) var tasks: [TaskStruct] = []
 
     init (list: ListSet) {
         moc = PersistenceController.shared.container.viewContext
         self.list = list
+        refreshTasks()
+    }
+
+    mutating func refreshTasks() {
+        tasks.removeAll()
         list.tasksArray.forEach { task in
             tasks.append(TaskStruct(task: task))
         }
@@ -49,6 +53,7 @@ public struct TaskModel {
         item.position = NSNumber(value: task.position)
         item.done = task.done
         item.listSet = self.list
+        item.flag = task.flag
 
         if let hour = task.scheduledHour {
             item.scheduledHour = NSNumber(value: hour)
@@ -60,6 +65,7 @@ public struct TaskModel {
 
         do {
             try moc.save()
+            refreshTasks()
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -89,6 +95,7 @@ struct TaskStruct: Identifiable, Equatable {
     var scheduledHour: Int32? = nil
     var scheduledMinute: Int32? = nil
     var done: Bool = false
+    var flag: Bool = false
     var mutated: Bool = false
 
     init(task: Tasks? = nil, position: Int32 = 0) {
@@ -107,6 +114,19 @@ struct TaskStruct: Identifiable, Equatable {
             self.id = Int32(truncating: taskPosition)
         } else {
             self.id = Int32(position)
+        }
+
+        if let scheduledDate = task?.scheduledDate {
+            self.scheduledDate = scheduledDate
+        }
+        if let scheduledHour = task?.scheduledHour {
+            self.scheduledHour = Int32(truncating: scheduledHour)
+        }
+        if let scheduledMinute = task?.scheduledMinute {
+            self.scheduledMinute = Int32(truncating: scheduledMinute)
+        }
+        if let flag = task?.flag {
+            self.flag = flag
         }
     }
 

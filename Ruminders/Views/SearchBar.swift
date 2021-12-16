@@ -67,6 +67,9 @@ struct ResignKeyboardOnDragGesture: ViewModifier {
 
 extension View {
     func resignKeyboardOnDragGesture(empty: Bool) -> some View {
-        modifier(ResignKeyboardOnDragGesture(empty: empty))
+        if !empty {
+            modifier(ResignKeyboardOnDragGesture(empty: empty))
+        }
+        return self
     }
 }

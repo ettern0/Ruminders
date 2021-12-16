@@ -11,7 +11,6 @@ public struct ListView: View {
     @State var mode: EditMode = .inactive
     @State var searchText = ""
     @State var showCancelButton: Bool = false
-    let headerHeight = CGFloat(24)
 
     public var body: some View {
         NavigationView {

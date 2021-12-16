@@ -66,3 +66,11 @@ public class ListsViewModel: ObservableObject {
         model.delete(list: list)
     }
 }
+
+func getSignArray() -> Array<String> {
+    ["list.bullet", "pencil", "rectangle.and.pencil.and.ellipsis", "lasso","scissors", "wand.and.rays","paintbrush", "folder","calendar", "bookmark", "paperclip", "command.circle", "delete.left","network", "moon.stars.fill", "cloud.fill", "snowflake", "circle.hexagongrid.fill", "mic", "suit.heart", "star", "bell", "message", "phone"]
+}
+
+func getColorsArray() -> Array<Color> {
+    [.red, .orange, .yellow, .green, .blue, .brown, .purple, .mint, .pink, .gray, .teal]
+}
